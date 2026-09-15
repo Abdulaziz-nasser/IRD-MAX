@@ -132,8 +132,7 @@ We are organizing the repository using this layout:
 |`software/jetson/`|Python vision and driving code, settings, and calibration tools|
 |`software/controller/`|Arduino Uno code for the motor, steering, and sensors|
 |`CAD/`|Chassis, mounts, and other 3D design files|
-|`images/`|Team, vehicle, wiring, and testing photos|
-|`testing/`|Test results, logs, videos, and troubleshooting notes|
+|`testing/`|testing each necessary parts in the car|
 
 
 
