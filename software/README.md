@@ -1,13 +1,11 @@
-# IRD MAX Software
+# Software
 
-The Arduino Uno controls movement and reads the sensors. The Jetson reads those measurements and is the platform for camera processing and autonomous driving.
+Our car uses a Jetson for camera processing and driving decisions, and an Arduino Uno for movement and sensor readings. They communicate through USB serial at 115200 baud.
 
-|Folder|Contents|Current use|
-|-|-|-|
-|[controller/](controller/)|The latest Uno code, pin map, upload instructions, and command reference|Motor, steering, and sensor control|
-|[jetson/](jetson/)|The telemetry reader, dependencies, tests, and setup guide|Reading the current Uno's measurements|
+## Jetson
 
-Start with the controller upload guide and the Jetson telemetry reader. This checks that the two boards exchange the measurements we expect before we connect camera decisions to movement.
+[`jetson/o1.py`](jetson/o1.py) detects floor lines and red/green pillars. It uses yaw and distance readings to control straight driving, corners, obstacle avoidance, and parking.
 
-The telemetry reader accepts the current Uno's `TLM` messages. The autonomous package expects a different set of commands and replies, described in its guide. It is not yet a complete driving program for the Uno code in this repository.
+## Arduino Uno
 
+[`controller/ird_max_controller.ino`](controller/ird_max_controller.ino) controls the motor and steering servo. It reads the IMU, encoder, and ultrasonic sensors, then sends those measurements to the Jetson.
