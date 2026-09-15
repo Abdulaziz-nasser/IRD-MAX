@@ -69,6 +69,20 @@ We made two versions with the same speeds and turns to compare them:
 
 **Without the yaw system:** [slow_without_yaw.py](software/jetson/slow_without_yaw.py) keeps steering centered between turns.
 
+
+https://github.com/user-attachments/assets/1d59722b-05b5-4f70-8cae-8201ca815710
+
+
+
+
+
 **With the yaw system:** [slow_with_yaw.py](software/jetson/slow_with_yaw.py) uses `[STRAIGHT]` to correct the heading between turns.
+
+
+
+
+https://github.com/user-attachments/assets/0a3b3312-4361-43b0-a533-556fb77a1832
+
+
 
 Both versions still use the IMU for corner turns.
