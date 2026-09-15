@@ -24,3 +24,22 @@ We gotten a another usb drive to reinstall jetpack software.
 
 After making the change, we tested the system again and it worked correctly. 
 <img width="640" height="480" alt="pic_solve1" src="https://github.com/user-attachments/assets/f72a838c-ae70-4830-945c-4e5ff570c717" />
+
+## Problem 2 — NoMachine Connection
+
+### Problem
+
+The laptop had NoMachine 7.8 and the Jetson had version 10. We could not connect, and NoMachine showed “The connection with the server was lost.”
+
+### What We Tried
+
+- Tried connecting with the existing versions.
+- Tried downgrading the Jetson to version 9.8, but the connection still failed.
+
+### Solution
+
+We downloaded and installed the same NoMachine version on both devices.
+
+### Result
+
+The connection worked, allowing us to access the Jetson desktop from the laptop.
