@@ -48,3 +48,18 @@ We downloaded and installed the same NoMachine version on both devices.
 The connection worked allowing us to access the jetson desktop from the laptop easily ( finally :-:)
 The connection worked, allowing us to access the Jetson desktop from the laptop.
 
+## Problem 3 – Yaw and Straight Driving
+
+We noticed the problem during track testing: the car kept moving left and right when it should have been driving straight.
+
+We checked the yaw readings and steering commands. The old code recalculated steering faster than new yaw readings arrived, and rounded steering to whole degrees. This could make corrections sharp and uneven.
+
+We added `[STRAIGHT]` to hold one target heading, use fresh yaw readings, and make small, smooth corrections.
+
+We made two versions with the same speeds and turns to show the difference:
+
+**Without the yaw system — [`slow_without_yaw.py`](software/jetson/slow_without_yaw.py):** Steering stays centered between turns.
+
+**With the yaw system — [`slow_with_yaw.py`](software/jetson/slow_with_yaw.py):** `[STRAIGHT]` corrects the heading between turns.
+
+Both versions still use the IMU for corner turns.
