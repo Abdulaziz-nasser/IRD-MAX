@@ -43,7 +43,7 @@ The laptop had NoMachine 7.8 and the Jetson had version 10. We could not connect
 We downloaded and installed the same NoMachine version on both devices.
 
 ### **Result**
-<img width="1280" height="960" alt="photo_no_machine_done" src="https://github.com/user-attachments/assets/07575dfe-7652-491f-a7ad-9f5fa959bb84" />
+<img width="640" height="480" alt="photo_no_machine_done" src="https://github.com/user-attachments/assets/07575dfe-7652-491f-a7ad-9f5fa959bb84" />
 
 The connection worked allowing us to access the jetson desktop from the laptop easily ( finally :-:)
 The connection worked, allowing us to access the Jetson desktop from the laptop.
