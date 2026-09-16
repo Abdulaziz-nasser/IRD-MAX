@@ -6,7 +6,7 @@ We are building a self-driving car for the **WRO Future Engineers** competition.
 
 Here we document the car, our design choices, and what we learn during testing.
 
-> \*\*Project status:\*\* The car is still being built and tested. We will add photos, performance videos, final hardware details, and test results as they become available.
+> **Project status:** The car is being developed and tested. Individual build, steering, and track tests are documented in the [`testing/`](testing/) folder.
 
 ## Team Information
 
@@ -88,7 +88,7 @@ Our test plan starts with individual parts before moving on to complete runs:
 7. Test obstacle avoidance, stopping, and recovery.
 8. Attempt complete runs and parking.
 
-Problems, changes, screenshots, and results will go in `testing/`. We will add full-run results after verifying them on the track.
+Problems, changes, screenshots, and observed results are documented in the [`testing/`](testing/) folder and our [development journal](Journal.md). Current evidence includes a steering test, a 3D-printed body-part check, and a track-driving test.
 
 ## Competition Challenges
 
@@ -136,11 +136,9 @@ These summaries use the [official WRO 2026 international rules](https://wro-asso
 **Down**
 <img width="640" height="480" alt="downc" src="https://github.com/user-attachments/assets/3ed723e5-3a47-4bfa-98ce-0cf1ac848304" />
 
-## Performance Video
+## Testing Videos
 
-**Full run: coming soon.**
-
-!addlink
+Current testing videos and notes are available in the [`testing/`](testing/) folder.
 
 ## Repository Structure
 
@@ -153,7 +151,7 @@ We are organizing the repository using this layout:
 |`software/jetson/`|Python vision and driving code, settings, and calibration tools|
 |`software/controller/`|Arduino Uno code for the motor, steering, and sensors|
 |`CAD/`|Chassis, mounts, and other 3D design files|
-|`testing/`|testing each necessary parts in the car|
+|`testing/`|Test purpose, method, observed results, video evidence, and development notes|
 
 
 
