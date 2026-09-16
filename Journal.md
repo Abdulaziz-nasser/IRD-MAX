@@ -3,7 +3,8 @@
 During the development of the vehicle, we ran into a problem while setting up and testing the system. This page shows what happened, what we tried, and how we fixed it.
 
 ## **Problem 1 — [Faulty usb drive]** 
-<img width="640" height="480" alt="pic_error1" src="https://github.com/user-attachments/assets/a6a34fac-dce3-4bc8-bbc6-130319bf3a2c" />
+<img width="640" height="480" alt="maybe_a_problem" src="https://github.com/user-attachments/assets/881410ae-a910-4c82-b6fe-b376b6668296" />
+
 
 
 ### **Problem**
@@ -17,6 +18,8 @@ During installation, we found a problem with installing the software.
 * recheck the usb
 
 ### **Solution**
+<img width="640" height="480" alt="worked" src="https://github.com/user-attachments/assets/e0a43b2a-5aad-4f6c-968b-c6432be90d0d" />
+
 
 We gotten a another usb drive to reinstall jetpack software.
 
