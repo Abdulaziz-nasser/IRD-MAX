@@ -23,11 +23,11 @@ Here we document the car, our design choices, and what we learn during testing.
 
 ### Team Photos
 this is Abdulaziz Nasser Al-Mindil
-<img width="640" height="480" alt="azoz" src="https://github.com/user-attachments/assets/bec8be80-376b-430d-8722-bb8dac013a1b" />
+<img width="480" height="240" alt="azoz" src="https://github.com/user-attachments/assets/bec8be80-376b-430d-8722-bb8dac013a1b" />
 
 and this is Mohamed Aldawood
 
-<img width="640" height="480" alt="mo" src="https://github.com/user-attachments/assets/7d7e1978-af75-475a-97d5-f7a9a3eb5785" />
+<img width="480" height="240" alt="mo" src="https://github.com/user-attachments/assets/7d7e1978-af75-475a-97d5-f7a9a3eb5785" />
 
 
 
