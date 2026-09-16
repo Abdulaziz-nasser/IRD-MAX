@@ -1,39 +1,41 @@
 # Testing
 
-We test each part of the car before doing a full challenge run. These videos show some of our early build and driving tests.
+We test individual parts and driving behaviour before running the complete challenge. This page records the purpose, method, and observed result of each test.
 
-## Track Driving Test
+## Test 1 — Track Driving and Turning
 
-[Watch the track test]
+**Purpose:** Check the car's movement and its response when entering a corner.
 
+**Test:** The car was placed on the field and driven toward the corner.
 
+**Result:** The car moved across the track and started the corner. The recording ended before the corner or a full run was completed.
+
+**Evidence:**
 
 https://github.com/user-attachments/assets/b2263392-7ead-4043-8df9-3296c7f84011
 
+## Test 2 — 3D-Printed Body Part
 
+**Purpose:** Check the shape of one of the blue body parts before installing it on the car.
 
+**Test:** The part was observed during the 3D-printing process.
 
+**Result:** The part was printed and its shape was checked before it was used on the vehicle.
 
-We tested the car on the field to check its movement and turning. The car moved across the track and started the corner, but this clip ended before a full run was completed.
-
-## 3D Printing Test
-
-[Watch the 3D printing test] 
+**Evidence:**
 
 https://github.com/user-attachments/assets/e96c9f82-ebd5-4437-964f-ed16c3f7a8d7
 
+## Test 3 — Steering System
 
+**Purpose:** Check the steering servo, linkage, and wheel movement before driving on the track.
 
-We printed one of the blue body parts and checked the shape while it was being made before using it on the car.
+**Test:** The steering system was operated while the car was on the table.
 
-## Steering Test
+**Result:** The servo moved the steering linkage and changed the direction of the front wheels.
 
-[Watch the steering test]
+**Evidence:**
 
 https://github.com/user-attachments/assets/8760a0b2-5b68-4e45-907e-386e316cc666
 
-
-
-We tested the steering on the table to check the servo, linkage, and wheel movement before driving on the track.
-
-For problems we found and fixed during testing, see [our journal](../Journal.md).
+For problems found and fixed during development, see [our journal](../Journal.md).
