@@ -6,7 +6,11 @@ We test each part of the car before doing a full challenge run. These videos sho
 
 [Watch the track test]
 
-https://github.com/user-attachments/assets/934388d7-21ec-4c79-9104-d6f083d6d01c
+
+
+https://github.com/user-attachments/assets/b2263392-7ead-4043-8df9-3296c7f84011
+
+
 
 
 
