@@ -1,18 +1,23 @@
 # Testing
 
-We check each part of the car before trying a full run on the track.
+We test each part of the car before doing a full challenge run. These videos show some of our early build and driving tests.
 
-## Test Checklist
+## Track Driving Test
 
-- Check USB serial commands and sensor readings.
-- Check motor direction, steering centre, and steering limits.
-- Check yaw, encoder distance, and ultrasonic measurements.
-- Test straight driving and corners at low speed.
-- Test passing red pillars on the right and green pillars on the left.
-- Test stopping after three laps and parking.
+[Watch the track test](videos/154460.mp4)
 
-## Recording Results
+We tested the car on the field to check its movement and turning. The car moved across the track and started the corner, but this clip ended before a full run was completed.
 
-For each run, record the settings, completed laps, time, and any problems. After a change, repeat the test and compare the results. Save photos, videos, and logs in this folder.
+## 3D Printing Test
 
-Troubleshooting notes are in [our journal](../Journal.md).
+[Watch the 3D printing test](videos/155003.mp4)
+
+We printed one of the blue body parts and checked the shape while it was being made before using it on the car.
+
+## Steering Test
+
+[Watch the steering test](videos/155004.mp4)
+
+We tested the steering on the table to check the servo, linkage, and wheel movement before driving on the track.
+
+For problems we found and fixed during testing, see [our journal](../Journal.md).
