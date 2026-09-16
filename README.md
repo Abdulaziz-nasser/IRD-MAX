@@ -22,9 +22,13 @@ Here we document the car, our design choices, and what we learn during testing.
 |**Coach**|Engineer Mohammed Emam|
 
 ### Team Photos
+this is Abdulaziz Nasser Al-Mindil
+<img width="640" height="480" alt="azoz" src="https://github.com/user-attachments/assets/bec8be80-376b-430d-8722-bb8dac013a1b" />
 
-Coming soon.
-!add pics
+and this is Mohamed Aldawood
+
+<img width="640" height="480" alt="mo" src="https://github.com/user-attachments/assets/7d7e1978-af75-475a-97d5-f7a9a3eb5785" />
+
 
 
 ## Our Vehicle
@@ -103,17 +107,28 @@ These summaries use the [official WRO 2026 international rules](https://wro-asso
 
 ## Vehicle Photos
 
-front <img width="640" height="480" alt="car2" src="https://github.com/user-attachments/assets/c51c6218-a4fc-4c51-9475-f023fcd511be" />
+**front**
+<img width="640" height="480" alt="car2" src="https://github.com/user-attachments/assets/c51c6218-a4fc-4c51-9475-f023fcd511be" />
 
 
-Back <img width="640" height="480" alt="car1" src="https://github.com/user-attachments/assets/6c4a1f5c-1093-4107-b4da-f7dc8f88465b" />
-
-Left <img width="640" height="480" alt="car3" src="https://github.com/user-attachments/assets/e8d0ba26-5df8-4ca9-8718-9249490bada2" />
-
+**Back**
+<img width="640" height="480" alt="car1" src="https://github.com/user-attachments/assets/6c4a1f5c-1093-4107-b4da-f7dc8f88465b" />
 
 
-Right<img width="640" height="480" alt="car4" src="https://github.com/user-attachments/assets/2c078d51-1b11-47a7-a134-59580c94479d" />
+**Left**
+<img width="640" height="480" alt="car3" src="https://github.com/user-attachments/assets/e8d0ba26-5df8-4ca9-8718-9249490bada2" />
 
+
+**Right**
+<img width="640" height="480" alt="car4" src="https://github.com/user-attachments/assets/2c078d51-1b11-47a7-a134-59580c94479d" />
+
+
+**Top**
+<img width="640" height="480" alt="topc" src="https://github.com/user-attachments/assets/f90be296-316d-44c2-8c26-7cabefcfcc01" />
+
+
+**Down**
+<img width="640" height="480" alt="downc" src="https://github.com/user-attachments/assets/3ed723e5-3a47-4bfa-98ce-0cf1ac848304" />
 
 ## Performance Video
 
