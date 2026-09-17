@@ -39,11 +39,11 @@ and this is Mohamed Aldawood
 
 ## Our Vehicle
 
-Our car uses an **NVIDIA Jetson Orin Nano**, **one camera**, and an **Arduino Uno**. Each board has a different job:
+Our car uses an **NVIDIA Jetson Nano**, **one camera**, and an **Arduino Uno**. Each board has a different job:
 
 |Board|What it handles|
 |-|-|
-|**Jetson Orin Nano**|Camera processing, colour detection, driving decisions, and logging|
+|**Jetson Nano**|Camera processing, colour detection, driving decisions, and logging|
 |**Arduino Uno**|Drive motor, steering servo, encoder, IMU, ultrasonic sensors, and start control|
 
 This lets the Jetson focus on the camera and driving decisions while the Arduino Uno handles movement and sensor readings.
@@ -52,7 +52,7 @@ The boards communicate through **USB serial**:
 
 ```mermaid
 flowchart TD
-    CAMERA\["Single camera"] --> JETSON\["Jetson Orin Nano"]
+    CAMERA\["Single camera"] --> JETSON\["Jetson Nano"]
     JETSON -->|Movement commands| ARDUINO\["Arduino Uno"]
     ARDUINO -->|Sensor data and movement results| JETSON
     SENSORS\["Encoder, IMU and ultrasonic sensors"] --> ARDUINO
@@ -147,10 +147,11 @@ We are organizing the repository using this layout:
 |Location|Contents|
 |-|-|
 |`README.md`|Project overview, team information, photos, and performance video|
-|`hardware/`|Parts, wiring diagrams, power connections, and pin assignments|
+|[hardware/](hardware/)|Parts, wiring diagrams, power connections, and pin assignments|
+|[hardware/power/](hardware/power/)|Battery specifications, power distribution, regulator choices, and sensor power architecture|
 |`software/jetson/`|Python vision and driving code, settings, and calibration tools|
 |`software/controller/`|Arduino Uno code for the motor, steering, and sensors|
-|`CAD/`|Chassis, mounts, and other 3D design files|
+|[CAD/](CAD/)|CAD overview and six views of the vehicle design|
 |`testing/`|Test purpose, method, observed results, video evidence, and development notes|
 
 
