@@ -1,0 +1,7 @@
+# Supporting imports for the current Python programs and calibration tools.
+# Not a lock file or a claim about the team's installed versions.
+# Keep the Jetson's working OpenCV build with GUI and CSI/GStreamer support.
+# OpenCV is intentionally not installed from this file.
+numpy
+PyYAML
+pyserial

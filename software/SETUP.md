@@ -1,0 +1,125 @@
+# Setup
+
+These instructions refer to the original Jetson Nano, Arduino Uno and the code in this repository. Use the existing working Jetson installation. An Orin Nano OS image and an Arduino Mega pin map are different setups.
+
+Keep drive-motor power disconnected during installation and calibration. Close all driving programs before opening the camera or Arduino serial port from another tool.
+
+## 1. Get the files
+
+On the Jetson:
+
+```bash
+git clone https://github.com/Abdulaziz-nasser/IRD-MAX.git
+cd IRD-MAX
+git rev-parse HEAD
+```
+
+Keep the commit ID with a test result. It identifies the files used. GitHub's **Code > Download ZIP** also works; record the commit ID shown on GitHub when downloading.
+
+## 2. Check Python and the camera environment
+
+The added calibration tools use Python 3.6-compatible syntax. OpenCV needs GUI support, and CSI capture needs GStreamer and NVIDIA's camera driver. Do not replace a working OpenCV build just to install these helpers.
+
+```bash
+python3 --version
+python3 -c "import cv2; print(cv2.__version__); print(cv2.__file__); print(cv2.getBuildInformation())"
+```
+
+Check that GStreamer is enabled for CSI use. A successful import alone does not prove the camera can deliver frames.
+
+Imports are listed in [requirements.txt](requirements.txt). On a Jetson with working OpenCV, install missing supporting packages through its Ubuntu package manager:
+
+```bash
+sudo apt-get update
+sudo apt-get install python3-numpy python3-yaml python3-serial
+python3 -c "import numpy, yaml, serial; print(numpy.__version__, yaml.__version__, serial.VERSION)"
+```
+
+These are dependency names, not a record of the versions used in the track videos. Record the actual environment:
+
+```bash
+cat /etc/os-release
+cat /etc/nv_tegra_release
+python3 --version
+python3 -c "import cv2, numpy, yaml, serial; print('OpenCV', cv2.__version__); print('NumPy', numpy.__version__); print('PyYAML', yaml.__version__); print('pyserial', serial.VERSION)"
+```
+
+The driving scripts use OpenCV's two-result `findContours` interface. Check OpenCV compatibility separately when rebuilding the Nano image; testing a helper does not prove a fresh image can run the mission.
+
+## 3. Upload the Uno code
+
+Use a computer with Arduino IDE and the **Arduino AVR Boards** package.
+
+1. Install the [DFRobot BNO055 library](https://github.com/DFRobot/DFRobot_BNO055). The code includes `DFRobot_BNO055.h`, not the Adafruit library.
+2. Make sure Servo is installed. Wire is supplied with the board package.
+3. Copy [ird_max_controller.ino](controller/ird_max_controller.ino) into a folder also named `ird_max_controller`. Open that copy in Arduino IDE. This meets Arduino's folder-name requirement without moving the repository file.
+4. Select **Arduino Uno**, choose its USB port, then Verify and Upload.
+5. Open Serial Monitor at **115200 baud**. After reset, expect `READY` and lines beginning with `TLM,`.
+6. Close Serial Monitor before starting a Python tool.
+
+Check connections against [the Uno pin map](../hardware/PINOUT.md), not the Mega pinout from the archive.
+
+## 4. Find the serial port
+
+```bash
+python3 -m serial.tools.list_ports
+```
+
+The current default is `/dev/ttyUSB0`. A different interface may appear as `/dev/ttyACM0` or another number. Use the port actually listed.
+
+For a permissions error, check the device's group and your account's groups. On systems where access belongs to `dialout`:
+
+```bash
+sudo usermod -aG dialout "$USER"
+```
+
+Log out and back in before retrying. Do not run the driving program with sudo as a workaround.
+
+Read sensors without sending movement commands:
+
+```bash
+python3 software/tools/sensor_check.py --port /dev/ttyUSB0
+```
+
+Opening serial can reset the Uno. Keep motor power disconnected even for a read-only tool.
+
+## 5. Calibrate colours and distance
+
+Follow [the calibration guide](tools/README.md). The colour tool saves four top-level colour names and HSV ranges inside `software/jetson/config/`.
+
+The [example file](jetson/config/vision.example.yaml) contains starter values from the archive, not measurements from our field. It does not match `vision_*.yaml`, so the driving programs do not automatically select it.
+
+The scripts select the alphabetically last `config/vision_*.yaml` relative to the working directory, unless `VISION_CFG` points to an existing file. Use an explicit path when comparing runs.
+
+## 6. Check the existing programs
+
+From the repository root, these commands check syntax and the calibration helpers without operating the robot:
+
+```bash
+python3 -m py_compile software/jetson/o1.py software/jetson/slow_with_yaw.py software/jetson/slow_without_yaw.py
+python3 -m unittest discover -s software/tests -v
+```
+
+For a stationary camera check, use the autotuner with drive-motor power disconnected. It never opens the Arduino port.
+
+For a driving program, change into `software/jetson`. Replace the filename below with the actual calibrated file saved by the tool:
+
+```bash
+cd software/jetson
+VISION_CFG="$PWD/config/vision_your_saved_file.yaml" ROBOT_PORT=/dev/ttyUSB0 python3 slow_with_yaw.py
+```
+
+The path must exist. Check the `Loaded vision config:` message: a nonexistent override can fall back to another file.
+
+Use `slow_without_yaw.py` for the matching comparison. Read [the controller compatibility note](README.md#controller-compatibility) before attempting the movement sequences in `o1.py`.
+
+The existing programs use **S** to start and **Q** to send STOP and quit while their OpenCV window is focused. The physical start button connects to the Uno. Keyboard controls are for bench testing, not a replacement for the competition start procedure.
+
+Do not treat closing a terminal, Ctrl+C or unplugging USB as an emergency stop. The uploaded Uno code has no general serial-command-loss watchdog. Keep a physical drive-power disconnect available and verify stopping with the wheels raised before floor testing.
+
+## References
+
+- [Arduino code-folder requirements](https://docs.arduino.cc/arduino-cli/sketch-specification/)
+- [DFRobot BNO055 library](https://github.com/DFRobot/DFRobot_BNO055)
+- [OpenCV video backends](https://docs.opencv.org/4.x/d0/da7/videoio_overview.html)
+- [NVIDIA JetPack archive](https://developer.nvidia.com/embedded/jetpack-archive)

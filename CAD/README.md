@@ -1,48 +1,45 @@
-# IRD MAX CAD Model
+# CAD Model
 
-This folder shows the CAD model of our WRO Future Engineers vehicle. We made the model to plan the mechanical layout before assembly and to check how the chassis, drivetrain, steering system, electronics, sensors, and outer cover fit together.
+We used this model to check where the chassis, drive motor, steering, electronics and covers fit. The six views below show the planned arrangement alongside the [vehicle photos](../README.md#vehicle-photos).
 
-## Mechanical Layout
+## Layout
 
-- **Chassis:** The lower frame supports the drivetrain and electronics while keeping the main parts close to the center of the vehicle.
-- **Drive system:** An RC380 brushed motor drives the rear wheels. The motor is mounted close to the rear axle to keep the drivetrain compact.
-- **Steering system:** The front wheels are controlled by an MG996R servo. The CAD model helped us check the steering position and wheel clearance.
-- **Electronics mounting:** The model includes space for the Arduino, Jetson, motor controller, sensors, and wiring.
-- **Camera and sensors:** The camera is mounted at the front and above the chassis for a clear view of the track. The sensor positions were planned so the robot can measure the front and sides without the body blocking them.
-- **Outer cover:** The upper cover protects the electronics while keeping the main parts accessible when we need to make changes.
+| Part | Position and reason |
+| --- | --- |
+| Chassis | Supports the drivetrain and electronics, with heavier parts low and near the centre. |
+| RC380 motor | Near the rear axle to keep the rear-wheel drivetrain compact. |
+| MG996R steering servo | At the front, with clearance for the linkage and wheels to turn. |
+| Jetson, Uno and driver | Mounted inside the frame, with room for wiring and access. |
+| Camera | High at the front, facing the track without the cover blocking its view. |
+| Ultrasonic sensors | Face outward so body panels do not sit in front of them. |
+| Upper cover | Covers the electronics while allowing access for adjustments. |
 
-## Design Choices
+## Why This Layout
 
-We used a rear-drive and front-steering layout because it is simple, compact, and close to the steering arrangement of a real car. The heavier components are kept low on the chassis to improve stability while turning. We also left clearance around the wheels and steering parts so they can move without touching the frame or cover.
+Rear drive and front steering keep the mechanism straightforward. Keeping weight low helps stability in turns. Leaving space around the steering linkage lets us check that the wheels move without touching the cover.
 
-The CAD model was useful for checking component placement before building. It also helped us compare the planned layout with the finished robot and make small mounting changes during assembly.
+The model helped us compare component positions before assembly and check the fit against the built car. These are layout views, not dimensioned manufacturing drawings. They show placement; the screenshots alone do not specify every mounting hole or printed-part dimension.
 
 ## CAD Views
 
-### Top View
-
+### Top
 ![Top view of the IRD MAX CAD model](cad_top.png)
 
-### Bottom View
-
+### Bottom
 ![Bottom view of the IRD MAX CAD model](cad_bottom.png)
 
-### Left-Side View
+### Left
+![Left view of the IRD MAX CAD model](cad_left.png)
 
-![Left-side view of the IRD MAX CAD model](cad_left.png)
-
-### Rear View
-
+### Rear
 ![Rear view of the IRD MAX CAD model](cad_rear.png)
 
-### Right-Side View
+### Right
+![Right view of the IRD MAX CAD model](cad_right.png)
 
-![Right-side view of the IRD MAX CAD model](cad_right.png)
-
-### Front View
-
+### Front
 ![Front view of the IRD MAX CAD model](cad_front.png)
 
-## What the Model Shows
+## Related Pages
 
-The six views show the overall shape of the vehicle, wheel arrangement, motor position, steering layout, component mounting, camera position, sensor locations, and removable outer cover. Together, they provide a clear reference for the mechanical design used on the IRD MAX robot.
+[Parts](../hardware/) · [Wiring drawings](../schematic/) · [Body-part and steering tests](../testing/)

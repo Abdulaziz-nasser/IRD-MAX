@@ -2,157 +2,159 @@
 
 **Team #5865 | Riyadh, Saudi Arabia | 2026**
 
-We are building a self-driving car for the **WRO Future Engineers** competition. Our aim is to complete the track, pass obstacles on the correct side, and park without manual control.
+This is our self-driving car for WRO Future Engineers. We use a Jetson Nano to process the camera and an Arduino Uno to control the motor, steering and sensors.
 
-Here we document the car, our design choices, and what we learn during testing.
+The repository contains the code, parts list, CAD views, wiring drawings and test recordings. The journal explains problems we ran into, including straight-driving corrections and setting up remote access.
 
-> **Project status:** The car is being developed and tested. Individual build, steering, and track tests are documented in the [`testing/`](testing/) folder.
+## Where to Start
+
+| Looking for | Open |
+| --- | --- |
+| Install, upload and run instructions | [Software setup](software/SETUP.md) |
+| Colour and encoder calibration | [Calibration tools](software/tools/) |
+| Components and Arduino connections | [Hardware](hardware/) and [Uno pin map](hardware/PINOUT.md) |
+| Mechanical layout | [CAD views](CAD/) |
+| Wiring drawings | [Schematics](schematic/) |
+| Recorded tests | [Testing](testing/) |
+| Problems and changes | [Journal](Journal.md) |
+| Recent repository changes | [Change notes](CHANGELOG.md) |
 
 ## Team Information
 
-|Detail|Information|
-|-|-|
-|**Team name**|IRD MAX|
-|**Team number**|#5865|
-|**Country**|Saudi Arabia|
-|**City**|Riyadh|
-|**Competition**|WRO Future Engineers 2026|
-|**Team member**|Abdulaziz Nasser Al-Mindil|
-|**Team member**|Mohamed Aldawood|
-|**Coach**|Engineer Mohammed Emam|
+| Detail | Information |
+| --- | --- |
+| Team name | IRD MAX |
+| Team number | #5865 |
+| Country | Saudi Arabia |
+| City | Riyadh |
+| Competition | WRO Future Engineers 2026 |
+| Team member | Abdulaziz Nasser Al-Mindil |
+| Team member | Mohamed Aldawood |
+| Coach | Engineer Mohammed Emam |
 
 ### Team Photos
-
 
 this is Abdulaziz Nasser Al-Mindil
 
 <img width="360" height="240" alt="azoz" src="https://github.com/user-attachments/assets/bec8be80-376b-430d-8722-bb8dac013a1b" />
 
-
-
-
 and this is Mohamed Aldawood
 
 <img width="360" height="240" alt="mo" src="https://github.com/user-attachments/assets/7d7e1978-af75-475a-97d5-f7a9a3eb5785" />
 
-
-
 ## Our Vehicle
 
-Our car uses an **NVIDIA Jetson Nano**, **one camera**, and an **Arduino Uno**. Each board has a different job:
+The current setup uses the **original NVIDIA Jetson Nano**, one IMX477 camera and an **Arduino Uno**. The Orin Nano/Mega rebuild archive is a separate reference, not the firmware and operating-system setup for this car.
 
-|Board|What it handles|
-|-|-|
-|**Jetson Nano**|Camera processing, colour detection, driving decisions, and logging|
-|**Arduino Uno**|Drive motor, steering servo, encoder, IMU, ultrasonic sensors, and start control|
+| Board | Job |
+| --- | --- |
+| Jetson Nano | Camera frames, colour detection, driving decisions and serial commands. |
+| Arduino Uno | Drive motor, steering servo, IMU, encoder, ultrasonic readings and start button. |
 
-This lets the Jetson focus on the camera and driving decisions while the Arduino Uno handles movement and sensor readings.
+The RC380 motor drives the rear wheels. The MG996R servo steers the front wheels. The CAD page shows how the chassis, covers, camera and electronics fit around these parts.
 
-The boards communicate through **USB serial**:
+The boards exchange commands and readings through USB serial at 115200 baud:
 
 ```mermaid
 flowchart TD
-    CAMERA\["Single camera"] --> JETSON\["Jetson Nano"]
-    JETSON -->|Movement commands| ARDUINO\["Arduino Uno"]
-    ARDUINO -->|Sensor data and movement results| JETSON
-    SENSORS\["Encoder, IMU and ultrasonic sensors"] --> ARDUINO
-    ARDUINO --> ACTUATORS\["Drive motor and steering servo"]
+    CAMERA["IMX477 camera"] --> JETSON["Jetson Nano"]
+    JETSON -->|Movement commands| UNO["Arduino Uno"]
+    UNO -->|Sensor readings| JETSON
+    SENSORS["IMU, encoder and ultrasonics"] --> UNO
+    UNO --> DRIVE["Motor and steering servo"]
 ```
 
-## How the Car Works
+## Camera and Driving
 
-### Camera and Colour Detection
+Blue and orange floor lines help the programs identify corners. Red and green pillars identify the side the car should pass. The camera settings need to match the track lighting; a colour range that works in one room may include shadows or miss the target elsewhere.
 
-The camera looks for **blue and orange floor lines** to help identify corners, and **red and green pillars** to decide which side to pass.
+The [colour sampler](software/tools/autotune_colors.py) lets us select the four colours from the camera image and save their HSV ranges. It writes the same YAML layout the current Python programs read. Its preview shows colour masks, not the full obstacle strategy: the driving code also has its own regions of interest, filters and thresholds.
 
-The colour calibration tool adjusts detection to the track lighting. It shares its vision code and settings with the driving program.
+The IMU supplies heading, also called yaw. The encoder estimates distance from wheel movement. Ultrasonic sensors provide nearby wall distances. These readings let the Jetson choose a movement, while the Uno produces the motor and servo signals.
 
-### Driving and Sensor Feedback
+The existing Uno file reads front, left and right ultrasonic sensors. The parts list includes four sensors, but a rear reading is not part of this firmware's telemetry. The [pin map](hardware/PINOUT.md) makes that difference explicit.
 
-The Jetson uses the camera and sensor readings to decide when to drive, turn, or stop. The Arduino Uno carries out these commands and sends readings back to the Jetson.
+## Software and Calibration
 
-The **IMU** measures heading, also called yaw, to help the car stay straight and make turns. The **encoder** estimates distance travelled, and the **ultrasonic sensors** measure the space around the car.
+The [software page](software/) lists each program. The slow comparison files use the same speeds and turns; one holds a straight target heading and the other keeps steering centered between corners. Both use the IMU for turns. Their comparison is documented in [the journal](Journal.md).
 
-Our control design includes movement timeouts and a motor stop if communication is lost. These are checked during testing along with normal driving behaviour.
+The calibration folder adds three practical tools:
 
-## Development and Testing
+- Colour sampling to create a new settings file without overwriting an existing one.
+- Read-only yaw, ultrasonic and encoder checks, with optional CSV logging.
+- An encoder-scale calculation based on rolling the car by hand over a measured distance.
 
-Our test plan starts with individual parts before moving on to complete runs:
+These helpers are adapted to the uploaded Uno telemetry. They do not install new firmware or send driving commands. The archive's Mega motion tools and background service are not included.
 
-1. Check the power supply and wiring.
-2. Check communication between the Jetson and Arduino Uno.
-3. Test motor direction and steering with the wheels raised.
-4. Calibrate the encoder, yaw, and ultrasonic sensors.
-5. Test the camera and colour detection under different lighting.
-6. Try straight driving and corners at low speed.
-7. Test obstacle avoidance, stopping, and recovery.
-8. Attempt complete runs and parking.
+## Repeating the Setup
 
-Problems, changes, screenshots, and observed results are documented in the [`testing/`](testing/) folder and our [development journal](Journal.md). Current evidence includes a steering test, a 3D-printed body-part check, and a track-driving test.
+Get a copy of this repository and record the commit ID:
 
-## Competition Challenges
+```bash
+git clone https://github.com/Abdulaziz-nasser/IRD-MAX.git
+cd IRD-MAX
+git rev-parse HEAD
+```
 
-These are the tasks we are working towards.
+Then follow [SETUP.md](software/SETUP.md). It covers the Python imports, OpenCV camera check, Arduino libraries, upload process, serial port, calibration and program launch directory.
 
-### Open Challenge - Up to 30 Points
+For each test, keep the Python filename, Uno code version, colour YAML file and settings together. Check the program's printed configuration path before starting. The example YAML in this repository is labelled as starter data; it is not a measured field calibration.
 
-* Complete **three laps** autonomously.
-* Follow the round's driving direction and handle changes to the inner wall layout.
-* Stay on the track and stop in the finish section after the third lap.
+The existing files also have a controller-version difference: some movements in `o1.py` use distance commands absent from the uploaded Uno code. Read [the compatibility notes](software/README.md#controller-compatibility) before running those paths. This documentation update does not replace the driving programs.
 
-### Obstacle Challenge - Up to 62 Points
+Keep drive-motor power disconnected during setup and calibration. For powered tests, raise the wheels first and keep a physical power disconnect available. The current Uno code has turn protection but no general stop-on-serial-loss watchdog; unplugging USB is not a reliable stop method.
 
-* Complete **three laps** autonomously.
-* Pass **red pillars on the right** and **green pillars on the left**.
-* Avoid moving the pillars.
-* Finish by parking fully inside the parking area, parallel to the wall.
+## Testing and Changes
 
-The maximum also includes the bonus for starting inside the parking lot and completing at least one full lap.
+[Testing](testing/) contains the steering, body-part and track recordings with a short purpose, method and observation for each. The [test procedure](testing/PROCEDURE.md) explains what to record so another person can repeat a test.
 
-These summaries use the [official WRO 2026 international rules](https://wro-association.org/wp-content/uploads/WRO-2026-Future-Engineers-Self-Driving-Cars-General-Rules.pdf). For Saudi events, the local organizer's rules and updates apply.
+Our [journal](Journal.md) keeps the problem, what we tried, the change and the observed result. The yaw comparison includes both Python files and video evidence. Failed attempts are useful when they show a problem clearly and can be linked to a specific change.
+
+The calibration helpers also have offline checks:
+
+```bash
+python3 -m unittest discover -s software/tests -v
+```
+
+Those tests check calculations, file format and telemetry parsing. They do not claim the robot completed a challenge or that the physical sensors are calibrated.
+
+## Competition Tasks
+
+In the open challenge the car completes three laps and stops in the finish section. In the obstacle challenge it also passes red pillars on the right and green pillars on the left, then parks parallel to the wall.
+
+The [official 2026 rules](https://wro-association.org/wp-content/uploads/WRO-2026-Future-Engineers-Self-Driving-Cars-General-Rules.pdf) give the full scoring and field requirements. For Saudi events, follow the local organizer's rules and updates.
 
 ## Vehicle Photos
 
-**front**
+**Front**
 <img width="640" height="480" alt="car2" src="https://github.com/user-attachments/assets/c51c6218-a4fc-4c51-9475-f023fcd511be" />
-
 
 **Back**
 <img width="640" height="480" alt="car1" src="https://github.com/user-attachments/assets/6c4a1f5c-1093-4107-b4da-f7dc8f88465b" />
 
-
 **Left**
 <img width="640" height="480" alt="car3" src="https://github.com/user-attachments/assets/e8d0ba26-5df8-4ca9-8718-9249490bada2" />
-
 
 **Right**
 <img width="640" height="480" alt="car4" src="https://github.com/user-attachments/assets/2c078d51-1b11-47a7-a134-59580c94479d" />
 
-
 **Top**
 <img width="640" height="480" alt="topc" src="https://github.com/user-attachments/assets/f90be296-316d-44c2-8c26-7cabefcfcc01" />
 
-
-**Down**
+**Bottom**
 <img width="640" height="480" alt="downc" src="https://github.com/user-attachments/assets/3ed723e5-3a47-4bfa-98ce-0cf1ac848304" />
 
-## Testing Videos
+## Repository Files
 
-Current testing videos and notes are available in the [`testing/`](testing/) folder.
-
-## Repository Structure
-
-We are organizing the repository using this layout:
-
-|Location|Contents|
-|-|-|
-|`README.md`|Project overview, team information, photos, and performance video|
-|[hardware/](hardware/)|Parts, wiring diagrams, power connections, and pin assignments|
-|[hardware/power/](hardware/power/)|Battery specifications, power distribution, regulator choices, and sensor power architecture|
-|`software/jetson/`|Python vision and driving code, settings, and calibration tools|
-|`software/controller/`|Arduino Uno code for the motor, steering, and sensors|
-|[CAD/](CAD/)|CAD overview and six views of the vehicle design|
-|`testing/`|Test purpose, method, observed results, video evidence, and development notes|
+| Location | Contents |
+| --- | --- |
+| [hardware/](hardware/) | Component list, signal pin map and power notes. |
+| [schematic/](schematic/) | Circuit diagram and machine schematic. |
+| [CAD/](CAD/) | Mechanical explanation and six CAD views. |
+| [software/](software/) | Setup, current code, serial reference and calibration tools. |
+| [testing/](testing/) | Videos, observations and repeatable test procedure. |
+| [Journal.md](Journal.md) | Troubleshooting and the yaw comparison. |
+| [CHANGELOG.md](CHANGELOG.md) | Dated documentation/tool changes; Git records the exact file versions. |
 
 
 

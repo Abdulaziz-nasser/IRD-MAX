@@ -1,6 +1,8 @@
 # Testing
 
-We test individual parts and driving behaviour before running the complete challenge. This page records the purpose, method, and observed result of each test.
+These clips record checks of driving, a printed body part and steering. Each entry describes what was tested and what the recording shows.
+
+For setup, measurements and repeat-test notes, use the [test procedure](PROCEDURE.md) and [calibration tools](../software/tools/).
 
 ## Test 1 — Track Driving and Turning
 

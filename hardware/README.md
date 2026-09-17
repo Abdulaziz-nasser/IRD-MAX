@@ -2,7 +2,7 @@
 
 The Jetson processes camera images and sends driving commands to the Arduino Uno over USB. The Arduino controls the RC380 motor and MG996R steering servo and reads the sensors.
 
-Detailed battery and regulator information is documented in the [power system](power/).
+Use the [Uno pin map](PINOUT.md) to check signal connections and the [power notes](power/) for supply information.
 
 | Component | Quantity | Photo |
 |---|---|---|
@@ -17,9 +17,12 @@ Detailed battery and regulator information is documented in the [power system](p
 | **Rotary encoder** | 1 | <a href="https://kitsguru.com/products/m274-360-degree-rotary-encoder-brick-sensor-module"><img src="https://cdn.shopify.com/s/files/1/0587/2130/4757/products/Rotary-Encoder-Brick-Sensor-Module-1.jpg?v=1737971857" width="180" alt="Rotary encoder — product reference photo"></a> |
 | Buzzer | 1 | <a href="https://www.dfrobot.com/product-84.html"><img src="https://dfimg.dfrobot.com/enshop/DFR0032/DFR0032_Main_01.jpg" width="180" alt="Buzzer — product reference photo"></a> |
 | Battery cell holder | 1 | <a href="https://quartzcomponents.com/products/4-cell-18650-battery-holder"><img src="https://cdn.shopify.com/s/files/1/0300/6424/6919/products/4-Cell-18650-Battery-Holder.jpg?v=1649937983" width="180" alt="Battery cell holder — product reference photo"></a> |
-| DC-DC step-down regulators (5 V, 5–6 V, and 7.2 V) | 3 | <img src="images/adjustable-dc-dc-step-down-regulator.jpg" width="180" alt="Adjustable DC-DC step-down voltage regulator installed on the vehicle"> |
+| DC-DC step-down regulator | See power notes | <img src="images/adjustable-dc-dc-step-down-regulator.jpg" width="180" alt="Adjustable DC-DC step-down regulator"> |
 | Start button | 1 | <a href="https://www.dfrobot.com/product-1097.html"><img src="https://dfimg.dfrobot.com/enshop/image/data/DFR0029-W/DFR0029-W_260526%20%281%29.jpg" width="180" alt="Start button — product reference photo"></a> |
 
-Photos are product references. Click a photo to view its source.
+Most photos are product references, not identification photos of the installed parts. Check the label on the actual component before using a linked product's voltage or current rating.
 
 Wiring: [circuit diagram](../schematic/circuit-diagram.png) and [machine schematic](../schematic/machine-schematic.png).
+
+
+The inventory lists four ultrasonic sensors. The current Uno code reads three: front, left and right. The [pin map](PINOUT.md) describes the uploaded firmware rather than assuming a fourth connection.
