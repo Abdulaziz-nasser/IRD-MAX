@@ -15,6 +15,7 @@ The Jetson processes camera images and sends driving commands to the Arduino Uno
 | **Rotary encoder** | 1 | <a href="https://kitsguru.com/products/m274-360-degree-rotary-encoder-brick-sensor-module"><img src="https://cdn.shopify.com/s/files/1/0587/2130/4757/products/Rotary-Encoder-Brick-Sensor-Module-1.jpg?v=1737971857" width="180" alt="Rotary encoder — product reference photo"></a> |
 | Buzzer | 1 | <a href="https://www.dfrobot.com/product-84.html"><img src="https://dfimg.dfrobot.com/enshop/DFR0032/DFR0032_Main_01.jpg" width="180" alt="Buzzer — product reference photo"></a> |
 | Battery cell holder | 1 | <a href="https://quartzcomponents.com/products/4-cell-18650-battery-holder"><img src="https://cdn.shopify.com/s/files/1/0300/6424/6919/products/4-Cell-18650-Battery-Holder.jpg?v=1649937983" width="180" alt="Battery cell holder — product reference photo"></a> |
+| Adjustable DC-DC step-down voltage regulator | 1 | <img src="images/adjustable-dc-dc-step-down-regulator.jpg" width="180" alt="Adjustable DC-DC step-down voltage regulator installed on the vehicle"> |
 | Start button | 1 | <a href="https://www.dfrobot.com/product-1097.html"><img src="https://dfimg.dfrobot.com/enshop/image/data/DFR0029-W/DFR0029-W_260526%20%281%29.jpg" width="180" alt="Start button — product reference photo"></a> |
 
 Photos are product references. Click a photo to view its source.
