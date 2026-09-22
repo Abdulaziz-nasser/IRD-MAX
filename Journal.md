@@ -128,10 +128,11 @@ The encoder had been used heavily during testing. Over time, its readings became
 We replaced the worn encoder with a new one and checked its readings using the distance-checker program.
 
 ### Result
-<img width="480" height="640" alt="af" src="https://github.com/user-attachments/assets/75a29f96-ceeb-4f50-b60c-718ec19cf0b2" />
 
 The new encoder produced stable readings and restored accurate distance measurement.
 <img width="480" height="640" alt="af1" src="https://github.com/user-attachments/assets/5fb4ab36-3b05-4f26-a48e-c1798f285ff9" />
+
+<img width="480" height="640" alt="af" src="https://github.com/user-attachments/assets/75a29f96-ceeb-4f50-b60c-718ec19cf0b2" />
 
 
 [Recorded tests](testing/) · [Test procedure](testing/PROCEDURE.md) · [Setup and calibration](software/SETUP.md)
