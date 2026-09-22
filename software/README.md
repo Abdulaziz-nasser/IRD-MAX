@@ -2,6 +2,17 @@
 
 The Jetson reads the camera and decides what to do. The Arduino Uno reads the sensors and controls the drive motor and steering. They communicate over USB serial at 115200 baud.
 
+## Obstacle Challenge Strategy
+
+We marked this field layout to show an example route around the pillars. The black arrows show the direction of travel and the turns along the route.
+
+![Our Obstacle Challenge route example](obstacle-strategy.png)
+
+- **Red pillar:** pass on its right.
+- **Green pillar:** pass on its left.
+
+The camera detects the pillar colour so the car can choose which side to pass. After passing a pillar, it returns to its straight heading and continues toward the next corner.
+
 ## Start here
 
 1. Follow [SETUP.md](SETUP.md) to check the environment, upload the correct Arduino code and connect serial.

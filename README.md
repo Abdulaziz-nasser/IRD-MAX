@@ -2,6 +2,16 @@
 
 **Team #5865 | Riyadh, Saudi Arabia | 2026**
 
+## Challenge Videos
+
+### Open Challenge
+
+<!-- Paste the Open Challenge video below this comment. -->
+
+### Obstacle Challenge
+
+<!-- Paste the Obstacle Challenge video below this comment. -->
+
 This is our self-driving car for WRO Future Engineers. We use a Jetson Nano to process the camera and an Arduino Uno to control the motor, steering and sensors.
 
 The repository contains the code, parts list, CAD views, wiring drawings and test recordings. The journal explains problems we ran into, including straight-driving corrections and setting up remote access.
