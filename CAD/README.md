@@ -23,19 +23,19 @@ The model helped us compare component positions before assembly and check them a
 ## CAD Views
 
 ### Top
-![Top view of the IRD MAX CAD model](cad_top.png)
+![Top view of the IRD MAX CAD model](cad_bottom.png)
 
 ### Bottom
-![Bottom view of the IRD MAX CAD model](cad_bottom.png)
+![Bottom view of the IRD MAX CAD model](cad_top.png)
 
 ### Left
-![Left view of the IRD MAX CAD model](cad_left.png)
+![Left view of the IRD MAX CAD model](cad_right.png)
 
 ### Rear
 ![Rear view of the IRD MAX CAD model](cad_rear.png)
 
 ### Right
-![Right view of the IRD MAX CAD model](cad_right.png)
+![Right view of the IRD MAX CAD model](cad_left.png)
 
 ### Front
 ![Front view of the IRD MAX CAD model](cad_front.png)
