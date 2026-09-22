@@ -1,12 +1,12 @@
 # Software
 
-The Jetson reads the camera and decides what to do. The Arduino Uno reads the sensors and controls the drive motor and steering. They communicate over USB serial at 115200 baud.
+The Jetson reads the camera and makes the driving decisions. The Arduino Uno reads the sensors and controls the drive motor and steering. They communicate over USB serial at 115200 baud.
 
 ## Obstacle Challenge Strategy
 
-We marked this field layout to show an example route around the pillars. The black arrows show the direction of travel and the turns along the route.
+We marked this field layout to explain our route around the pillars. The black arrows show the driving direction and each turn.
 
-**Start at the thick red line on the right side of the picture and move upward.** Follow the arrows counterclockwise: turn left across the top, continue down the left side, travel right across the bottom, then head upward on the right side again. The smaller changes in direction take the car around the pillars.
+**Start at the thick red line on the right side of the picture and move upward.** Follow the arrows counterclockwise. Turn left across the top, continue down the left side, travel right across the bottom and then head upward on the right side again. The smaller direction changes take the car around the pillars.
 
 ![Our Obstacle Challenge route example](obstacle-strategy.png)
 
@@ -15,7 +15,7 @@ Left and right are measured from the car's direction of travel.
 - **Red pillar:** pass on its right.
 - **Green pillar:** pass on its left.
 
-The camera detects the pillar colour so the car can choose which side to pass. After passing a pillar, it returns to its straight heading and continues toward the next corner.
+The camera detects the pillar colour and selects the correct side. After passing it, the car returns to its straight heading and continues toward the next corner.
 
 ## Start here
 
@@ -32,7 +32,7 @@ Upload the Arduino controller that matches the Jetson program for the selected c
 | Open Challenge | [open_challenge.py](jetson/open_challenge.py) | [open_challenge_controller.ino](controller/open_challenge_controller.ino) |
 | Obstacle Challenge | [obstacle_challenge.py](jetson/obstacle_challenge.py) | [obstacle_challenge_controller.ino](controller/obstacle_challenge_controller.ino) |
 
-The Open Challenge pair handles intersection-colour detection, heading correction, corner turns and the final stopping sequence. The Obstacle Jetson program contains pillar-avoidance and parking states; its Arduino controller adds rear-distance telemetry and encoder-distance movement. These descriptions identify code functions, not measured completion rates.
+The Open Challenge pair handles intersection-colour detection, heading correction, corner turns and the final stopping sequence. The Obstacle program adds pillar avoidance and parking, while its Arduino controller adds rear-distance telemetry and encoder-distance movement.
 
 ## Other software files
 
@@ -47,7 +47,7 @@ The Open Challenge pair handles intersection-colour detection, heading correctio
 | [jetson/config/](jetson/config/) | Colour-file format and a labelled example. |
 | [tests/test_calibration.py](tests/test_calibration.py) | Offline checks for calibration maths, file saving and telemetry parsing. |
 
-The calibration tools were adapted from the supplied one-camera rebuild source. The rebuild's Mega firmware, mission code and OS installer are not part of this setup. See [the source notes](tools/README.md#source-and-compatibility).
+We adapted the calibration tools from the supplied one-camera rebuild source. We did not use its Mega firmware, mission code or OS installer because they do not match this setup. See [the source notes](tools/README.md#source-and-compatibility).
 
 ## What runs where
 
@@ -61,6 +61,6 @@ The Open and Obstacle Challenge programs use different controller files because 
 
 The Open controller reports front, left and right distances, without encoder telemetry. The Obstacle controller reports those distances plus `dB` and `enc_cm`, and accepts `FWD_CM` / `BACK_CM`. Parking decisions remain in the Jetson program.
 
-Do not substitute the older `ird_max_controller.ino` for the Obstacle controller: it lacks rear telemetry and distance moves, and its `BACK` prefix can misread `BACK_CM`. The [serial reference](PROTOCOL.md) lists commands separately for all three controllers.
+The older `ird_max_controller.ino` cannot replace the Obstacle controller. It lacks rear telemetry and distance moves, and its `BACK` prefix can misread `BACK_CM`. The [serial reference](PROTOCOL.md) lists the commands for all three controllers.
 
 The original source defaults to `/dev/ttyUSB0`. The [setup commands](SETUP.md#4-find-the-serial-port) explicitly select `/dev/ttyACM0` for the replacement Uno R3 without changing the robot's saved tuning. Use the actual listed port if its number differs.

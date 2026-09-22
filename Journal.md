@@ -1,70 +1,70 @@
-# **Troubleshooting**
+# Troubleshooting
 
-These are problems we encountered while setting up and testing the car. Each entry keeps the problem, what we tried and the result together.
+These are the main problems we faced while setting up and testing the car, along with what we tried and what fixed them.
 
-## Problem 1 — Faulty USB Drive 
+## Problem 1 — Faulty USB Drive
 <img width="640" height="480" alt="maybe_a_problem" src="https://github.com/user-attachments/assets/881410ae-a910-4c82-b6fe-b376b6668296" />
 
 
-### **Problem**
+### Problem
 
-JetPack installation did not finish when we used the first USB drive. 
+The JetPack installation did not finish when we used the first USB drive.
 
-### **What we tried**
+### What We Tried
 
-* Tried commands during setup.
-* Waited about 30 minutes.
-* Checked the USB drive again.
+- Tried commands during setup.
+- Waited about 30 minutes.
+- Checked the USB drive again.
 
-### **Solution**
+### Solution
 
 We used another USB drive and repeated the JetPack installation.
 
-### **Result**
+### Result
 <img width="640" height="480" alt="worked" src="https://github.com/user-attachments/assets/e0a43b2a-5aad-4f6c-968b-c6432be90d0d" />
 
-The installation worked with the replacement USB drive. 
+The installation worked with the replacement USB drive.
 
 
-## **Problem 2 — NoMachine Connection** 
+## Problem 2 — NoMachine Connection
 <img width="640" height="480" alt="photo_no_machine_not_done_#crying" src="https://github.com/user-attachments/assets/20470a50-e19c-4336-aa9e-58a59ea4540b" />
 
 
-### **Problem**
+### Problem
 
 The laptop had NoMachine 7.8 and the Jetson had version 10. We could not connect, and NoMachine showed “The connection with the server was lost.”
 
-### **What We Tried**
+### What We Tried
 
 - Tried connecting with the existing versions.
 - Tried downgrading the Jetson to version 9.8, but the connection still failed.
 
-### **Solution**
+### Solution
 
 We downloaded and installed the same NoMachine version on both devices.
 
-### **Result**
+### Result
 <img width="640" height="480" alt="photo_no_machine_done" src="https://github.com/user-attachments/assets/07575dfe-7652-491f-a7ad-9f5fa959bb84" />
 
-The connection worked allowing us to access the jetson desktop from the laptop easily ( finally :-:)
+The connection worked, and we could access the Jetson desktop from the laptop.
 
 ## Problem 3 — Yaw and Straight Driving
 
-### **Problem**
+### Problem
 
 During track testing, the car kept steering left and right when it should have been driving straight.
 
-### **What We Tried**
+### What We Tried
 
-* Tested straight driving at low speed.
-* Adjusted the yaw filter and steering limits.
-* Checked the yaw readings and steering commands. We found the code recalculated corrections faster than fresh yaw readings arrived and rounded steering to whole degrees, which could cause uneven corrections.
+- Tested straight driving at low speed.
+- Adjusted the yaw filter and steering limits.
+- Checked the yaw readings and steering commands. We found that corrections were calculated faster than new yaw readings arrived. The steering values were also rounded to whole degrees, which made the corrections uneven.
 
-### **Solution**
+### Solution
 
 We added `[STRAIGHT]` to hold one target heading on each straight section. It uses fresh yaw readings, makes small, smooth corrections, and resets its correction history after turns.
 
-### **Result**
+### Result
 
 We made two versions with the same speeds and turns to compare them:
 

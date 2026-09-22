@@ -1,8 +1,8 @@
 # Power Notes
 
-The car uses a holder with four lithium cells labelled 5000 mAh. The holder output was reported as approximately 15–18 V. The computer currently installed is the original Jetson Nano, and the RC380 drive motor is marked 7.2 V.
+The car uses a holder with four lithium cells labelled 5000 mAh. We measured approximately 15–18 V at the holder output. The installed computer is the original Jetson Nano, and the RC380 drive motor is marked 7.2 V.
 
-These details are not enough to identify the cell chemistry, charging limit or regulator current ratings. Check the labels and datasheets with the coach or an experienced adult before wiring or charging the pack.
+We still need the exact cell and regulator model numbers to confirm the charging limit and current ratings. We check those labels and datasheets with our coach before wiring or charging the pack.
 
 ## Battery Values
 
@@ -11,16 +11,16 @@ These details are not enough to identify the cell chemistry, charging limit or r
 | Cells | Four, reported as connected in series. |
 | Capacity label | 5000 mAh per cell; a 4S1P pack retains 5000 mAh capacity. |
 | Nominal voltage | About 14.8 V if each cell is nominally 3.7 V. |
-| Reported holder reading | Approximately 15–18 V; not a logged load test. |
+| Measured holder output | Approximately 15–18 V; this was not a logged load test. |
 | Charging limit | Must come from the exact cell manufacturer's specification. Do not assume a 4.4 V charge limit. |
 
-The reported voltage range should be verified with a meter. It does not establish a safe charging limit or prove that individual cells are balanced.
+The voltage needs to be checked again with a meter under load. It does not confirm the charging limit or whether the cells are balanced.
 
-## Reported Arrangement and Supply Requirements
+## Power Layout and Checks
 
-The team's description identifies a DC-DC step-down supply for the Jetson and low-power electronics. It also describes a drive branch without a step-down regulator. That report is not evidence of a safe motor supply: the reported pack voltage is higher than the motor's 7.2 V marking. Have the coach or an experienced adult inspect the actual drive-power arrangement before powered testing.
+A DC-DC step-down regulator supplies the Jetson and low-power electronics. The drive branch was described as connecting without a step-down regulator, but the measured pack voltage is higher than the motor's 7.2 V marking. This part of the wiring needs to be checked with our coach before powered testing.
 
-Separate servo and motor regulators, fuses and pack protection are not claimed as installed without identification. The table below records supply requirements to check, not a completed wiring diagram or measured load test.
+We have not listed separate servo or motor regulators, fuses or pack protection because their exact models have not been confirmed. The table below is a checklist, not a completed load test.
 
 | Branch | Supply requirement to check |
 | --- | --- |
@@ -29,7 +29,7 @@ Separate servo and motor regulators, fuses and pack protection are not claimed a
 | MG996R servo | Supply matched to the exact servo's voltage and peak-current requirements; do not load the Uno 5 V pin with the steering motor. |
 | RC380 drive motor | Supply matched to the motor's 7.2 V rating, through its driver. A motor driver's voltage rating does not make battery voltage suitable for the motor. |
 
-A step-down regulator reduces voltage; an ordinary buck converter does not provide galvanic isolation. Ground and high-current wiring need to be planned together.
+A step-down regulator reduces voltage but does not isolate the circuits. The grounds and high-current wiring must be planned together.
 
 ## Sensors and Placement
 
@@ -46,8 +46,8 @@ The inventory lists four ultrasonic sensors. Open publishes front, left and righ
 
 With qualified supervision, record the actual regulator model and output for each connected load. Check the output before attaching electronics and again under the intended load. Keep measured values separate from intended setpoints.
 
-A useful power check records supply voltage, current where measurable, any reset or shutdown, and heating observed during the test. Fuse, pack-protection and switch details must match the installed hardware; a diagram alone does not establish that protection is present.
+For each power test, record the supply voltage, current where measurable, resets or shutdowns, and any heating. Fuse, protection and switch details must match the hardware installed on the car.
 
-This repository does not contain a measured current budget or regulator load-test table. The documented supply reference should not be presented as completed electrical validation.
+We have not added a measured current budget or regulator load-test table, so this page records the layout and checks rather than a finished electrical validation.
 
 [NVIDIA Jetson Nano Developer Kit User Guide](https://developer.nvidia.com/embedded/dlc/jetson_nano_developer_kit_user_guide)

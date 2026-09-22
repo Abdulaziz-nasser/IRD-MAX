@@ -1,12 +1,12 @@
 # Test Procedure
 
-This is a repeatable test method, not a list of completed results. Recordings and observations are in [README.md](README.md).
+This page explains how we repeat our tests. The completed recordings and observations are in [README.md](README.md).
 
 ## Record the setup
 
 Keep the date, program filename, Git commit ID, Uno code version and colour YAML filename with each test. Note the track direction, wall/pillar layout and lighting.
 
-Write down the setting changed, its old/new values and what counts as a pass. Change one setting group at a time so a better result has an identifiable cause.
+Write down the setting changed, its old and new values, and what counts as a pass. Change one group of settings at a time so the result can be linked to that change.
 
 ## Bench checks
 
@@ -23,7 +23,7 @@ Keep a physical drive-power disconnect available. The uploaded Uno firmware does
 
 ## Track checks
 
-Start with short straight sections and corners, then test pillars and final movements. Run both directions. Record failures and successes, including time, distance or laps completed, contacts and manual intervention.
+Start with short straight sections and corners, then test pillars and the final movements. Run in both directions. Record failures and successes, including time, distance or completed laps, contacts and manual intervention.
 
 For the yaw comparison, keep speed, track section, starting position and colour file the same. Only straight-heading correction differs; both programs still use the IMU for turns.
 
@@ -31,7 +31,7 @@ Link each video to the test it shows. If a recording stops early, report only wh
 
 ## Compare results
 
-Record the observation, suspected cause if it failed, change made and repeat-test result. Separate numerical measurements from estimates and visual observations.
+Record what happened, the suspected cause of a failure, the change made and the result of the next test. Keep measured values separate from estimates and visual observations.
 
 Useful measures include completed laps, time, interventions, wall contacts, heading error and measured-versus-reported distance. Include only values actually recorded.
 
@@ -41,4 +41,4 @@ Useful measures include completed laps, time, interventions, wall contacts, head
 python3 -m unittest discover -s software/tests -v
 ```
 
-These run without hardware. They are separate from Arduino compilation, live sensor checks and track testing.
+These checks run without hardware. Arduino compilation, live sensor checks and track testing are separate.

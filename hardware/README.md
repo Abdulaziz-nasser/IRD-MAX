@@ -13,18 +13,17 @@ Use the [Uno pin map](PINOUT.md) to check signal connections and the [power note
 | DFRobot ultrasonic sensors | 4 | <a href="https://www.dfrobot.com/product-2172.html"><img src="https://dfimg.dfrobot.com/enshop/image/data/SEN0388/SEN0388_251022%20%281%29.jpg" width="180" alt="DFRobot ultrasonic sensors — product reference photo"></a> |
 | DFRobot BNO055 9-axis IMU | 1 | <a href="https://www.dfrobot.com/product-2142.html"><img src="https://dfimg.dfrobot.com/enshop/SEN0374/SEN0374_Main_01.jpg" width="180" alt="DFRobot 9-axis IMU — product reference photo"></a> |
 | RC380 brushed drive motor, marked 7.2 V | 1 | <img src="rc380-drive-motor.png" width="180" alt="Brushed drive motor — product reference photo"><br>[Installed vehicle views](../README.md#vehicle-photos) |
-| **MG996R steering servo** | 1 | <a href="https://towerpro.com.tw/product/mg996r/"><img src="https://towerpro.com.tw/wp-content/uploads/2014/08/MG996R-3b.jpg" width="180" alt="MG996R steering servo — product reference photo"></a> |
-| **Rotary encoder** | 1 | <a href="https://kitsguru.com/products/m274-360-degree-rotary-encoder-brick-sensor-module"><img src="https://cdn.shopify.com/s/files/1/0587/2130/4757/products/Rotary-Encoder-Brick-Sensor-Module-1.jpg?v=1737971857" width="180" alt="Rotary encoder — product reference photo"></a> |
+| MG996R steering servo | 1 | <a href="https://towerpro.com.tw/product/mg996r/"><img src="https://towerpro.com.tw/wp-content/uploads/2014/08/MG996R-3b.jpg" width="180" alt="MG996R steering servo — product reference photo"></a> |
+| Rotary encoder | 1 | <a href="https://kitsguru.com/products/m274-360-degree-rotary-encoder-brick-sensor-module"><img src="https://cdn.shopify.com/s/files/1/0587/2130/4757/products/Rotary-Encoder-Brick-Sensor-Module-1.jpg?v=1737971857" width="180" alt="Rotary encoder — product reference photo"></a> |
 | Buzzer | 1 | <a href="https://www.dfrobot.com/product-84.html"><img src="https://dfimg.dfrobot.com/enshop/DFR0032/DFR0032_Main_01.jpg" width="180" alt="Buzzer — product reference photo"></a> |
 | Battery cell holder | 1 | <a href="https://quartzcomponents.com/products/4-cell-18650-battery-holder"><img src="https://cdn.shopify.com/s/files/1/0300/6424/6919/products/4-Cell-18650-Battery-Holder.jpg?v=1649937983" width="180" alt="Battery cell holder — product reference photo"></a> |
 | DC-DC step-down regulator | See power notes | <a href="power/"><img src="dc-dc-step-down-regulator.png" width="180" alt="DC-DC step-down regulator — product reference photo"></a> |
 | Start button | 1 | <a href="https://www.dfrobot.com/product-1097.html"><img src="https://dfimg.dfrobot.com/enshop/image/data/DFR0029-W/DFR0029-W_260526%20%281%29.jpg" width="180" alt="Start button — product reference photo"></a> |
 
-Most photos are product references, not identification photos of the installed parts. Check the label on the actual component before using a linked product's voltage or current rating.
+Most of these are product-reference photos rather than photos of our installed parts. We check the label on the real component before using any linked voltage or current rating.
 
 Wiring: [circuit diagram](../schematic/circuit-diagram.png) and [machine schematic](../schematic/machine-schematic.png).
 
+We use four ultrasonic sensors. The Open controller reads front, left and right; the Obstacle controller also reads the rear distance on D10. Encoder inputs A2/A3 are used by the Obstacle and older development controllers, but not by the Open controller. See the [version-specific pin map](PINOUT.md).
 
-The inventory lists four ultrasonic sensors. The Open controller reads front, left and right; the Obstacle controller also reads rear distance on D10. Encoder inputs A2/A3 are used by the Obstacle and older development controllers, not the Open controller. See the [version-specific pin map](PINOUT.md).
-
-The documented computer is the original Jetson Nano, not the Orin Nano. Product-reference images illustrate component families; the vehicle photos and actual part labels identify the installed build.
+The computer installed in our car is the original Jetson Nano, not the Orin Nano. The [vehicle photos](../README.md#vehicle-photos) show the actual build.

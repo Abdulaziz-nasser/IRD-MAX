@@ -1,6 +1,6 @@
 # Calibration Tools
 
-These tools are separate from the driving programs. Disconnect drive-motor power and close the driving program before checking the camera or sensors. Run commands from the repository root after [setup](../SETUP.md).
+These tools are separate from the driving programs. Disconnect drive-motor power and close any driving program before checking the camera or sensors. Run the commands from the repository root after completing [setup](../SETUP.md).
 
 ## Colour calibration
 
@@ -31,7 +31,7 @@ Each save creates a new file without overwriting existing calibration. It uses t
 
 The saturation ceiling is kept at 255 because the existing floor-line code increases saturation before applying these ranges. Hue, minimum saturation and brightness still limit the mask. This avoids rejecting the same target solely because of the boost, but does not replace a check under real track lighting.
 
-The preview checks HSV ranges only. Driving programs also apply their own regions of interest, filters, saturation adjustments and thresholds. Their idle camera view does not confirm mission detection; the current programs have no separate stationary mode that validates the full pipeline. Keep that check separate from these calibration results and follow the [test procedure](../../testing/PROCEDURE.md) before a track run. This tool does not calibrate optional MAGNET settings or change driving parameters.
+The preview checks only the HSV ranges. The driving programs also use regions of interest, filters, saturation adjustments and thresholds. Their idle camera view does not test the full detection pipeline, so follow the [test procedure](../../testing/PROCEDURE.md) before a track run. This tool does not calibrate optional MAGNET settings or change driving parameters.
 
 ## Yaw and ultrasonic checks
 
@@ -39,7 +39,7 @@ The preview checks HSV ranges only. Driving programs also apply their own region
 python3 software/tools/sensor_check.py --port /dev/ttyACM0
 ```
 
-It shows the fields the selected controller reports. Open supplies yaw and front/left/right distances; Obstacle also supplies rear distance and encoder distance. Missing `dB` or `enc_cm` fields say `not reported` rather than zero. The examples use `/dev/ttyACM0` for the replacement Uno R3; check [serial-port discovery](../SETUP.md#4-find-the-serial-port) first.
+This displays the fields reported by the selected controller. Open supplies yaw and front, left and right distances; Obstacle also supplies rear and encoder distances. Missing `dB` or `enc_cm` fields appear as `not reported` rather than zero. The examples use `/dev/ttyACM0` for our replacement Uno R3; check [serial-port discovery](../SETUP.md#4-find-the-serial-port) first.
 
 - Rotate the car gently by hand and observe yaw. Record the physical rotation direction and sign rather than assuming the IMU mounting.
 - Put a flat target at known distances from each ultrasonic sensor and compare with a ruler.
@@ -78,7 +78,7 @@ This corrects the existing scale using `enc_cm`, not raw ticks. It cannot compen
 python3 -m unittest discover -s software/tests -v
 ```
 
-Tests cover HSV sampling, red wrap, saving, telemetry and encoder maths. They do not open camera/serial devices. A passing test does not mean the physical sensors are calibrated.
+The tests cover HSV sampling, red wrap, file saving, telemetry and encoder maths. They run without opening the camera or serial port, so physical sensor calibration is checked separately.
 
 ## Source and compatibility
 
@@ -91,6 +91,6 @@ The sampler and manual encoder procedure were adapted from `one_camera_robot_reb
 | IMU and ultrasonic checks | Combined into the read-only sensor checker. |
 | `config/vision.yaml` | HSV starter ranges retained as a labelled example, not field measurements. |
 
-The added tools use Python 3.6-compatible syntax. They do not require the rebuild's Mega firmware, motion library, background service or OS installer. Its steering tool is not included because its commands do not match the Uno.
+The tools use Python 3.6-compatible syntax. They do not need the rebuild's Mega firmware, motion library, background service or OS installer. We left out its steering tool because the commands do not match our Uno code.
 
 The helpers were checked offline. Camera capture, GUI interaction, serial timing and physical measurements require checks on the robot.

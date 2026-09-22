@@ -16,7 +16,7 @@
 
 This is our self-driving car for WRO Future Engineers. We use a Jetson Nano to process the camera and an Arduino Uno to control the motor, steering and sensors.
 
-The repository contains the code, parts list, CAD views, wiring drawings and test recordings. The journal explains problems we ran into, including straight-driving corrections and setting up remote access.
+This repository contains our code, parts list, CAD views, wiring drawings and test recordings. The journal covers problems we faced, including straight-driving corrections and remote-access setup.
 
 ## Where to Start
 
@@ -46,17 +46,17 @@ The repository contains the code, parts list, CAD views, wiring drawings and tes
 
 ### Team Photos
 
-this is Abdulaziz Nasser Al-Mindil
+**Abdulaziz Nasser Al-Mindil**
 
 <img width="360" height="240" alt="azoz" src="https://github.com/user-attachments/assets/bec8be80-376b-430d-8722-bb8dac013a1b" />
 
-and this is Mohamed Aldawood
+**Mohamed Aldawood**
 
 <img width="360" height="240" alt="mo" src="https://github.com/user-attachments/assets/7d7e1978-af75-475a-97d5-f7a9a3eb5785" />
 
 ## Our Vehicle
 
-The current setup uses the **original NVIDIA Jetson Nano**, one IMX477 camera and an **Arduino Uno R3**. The Orin Nano/Mega rebuild archive is a separate reference, not the firmware and operating-system setup for this car.
+Our current setup uses the **original NVIDIA Jetson Nano**, one IMX477 camera and an **Arduino Uno R3**. The Orin Nano and Arduino Mega files in the rebuild archive are only references and are not used on this car.
 
 | Board | Job |
 | --- | --- |
@@ -84,7 +84,7 @@ The [colour sampler](software/tools/autotune_colors.py) lets us select the four 
 
 The IMU supplies heading, also called yaw. The encoder estimates distance from wheel movement. Ultrasonic sensors provide nearby wall distances. These readings let the Jetson choose a movement, while the Uno produces the motor and servo signals.
 
-The inventory contains four ultrasonic sensors. The Open Challenge controller reads front, left and right distances. The Obstacle Challenge controller also reads the rear sensor on D10 and reports encoder distance from A2/A3. Open does not use the encoder. The [pin map](hardware/PINOUT.md) separates these controller versions.
+We have four ultrasonic sensors. The Open Challenge controller reads the front, left and right sensors. The Obstacle Challenge controller also reads the rear sensor on D10 and reports encoder distance from A2/A3. Open does not use the encoder. The [pin map](hardware/PINOUT.md) shows the differences between the controllers.
 
 ## Software and Calibration
 
@@ -96,7 +96,7 @@ The calibration folder adds three practical tools:
 - Read-only yaw, ultrasonic and encoder checks, with optional CSV logging.
 - An encoder-scale calculation based on rolling the car by hand over a measured distance.
 
-These helpers are adapted to the uploaded Uno telemetry. They do not install new firmware or send driving commands. The archive's Mega motion tools and background service are not included.
+We adapted these tools to the telemetry from our Uno. They only read data and do not install firmware or send driving commands. We left out the archive's Mega tools and background service because they do not match our setup.
 
 ## Repeating the Setup
 
@@ -128,7 +128,7 @@ The calibration helpers also have offline checks:
 python3 -m unittest discover -s software/tests -v
 ```
 
-Those tests check calculations, file format and telemetry parsing. They do not claim the robot completed a challenge or that the physical sensors are calibrated.
+These tests check calculations, file format and telemetry parsing. Physical sensor calibration and challenge runs are tested separately on the robot.
 
 ## Competition Tasks
 

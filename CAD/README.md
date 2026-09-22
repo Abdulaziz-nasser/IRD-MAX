@@ -1,6 +1,6 @@
 # CAD Model
 
-We used this model to check where the chassis, drive motor, steering, electronics and covers fit. The six views below show the planned arrangement alongside the [vehicle photos](../README.md#vehicle-photos).
+We used this model to plan where the chassis, drive motor, steering, electronics and covers would fit. The six views below can be compared with the [photos of the finished car](../README.md#vehicle-photos).
 
 ## Layout
 
@@ -18,7 +18,7 @@ We used this model to check where the chassis, drive motor, steering, electronic
 
 Rear drive and front steering keep the mechanism straightforward. Keeping weight low helps stability in turns. Leaving space around the steering linkage lets us check that the wheels move without touching the cover.
 
-The model helped us compare component positions before assembly and check the fit against the built car. These are layout views, not dimensioned manufacturing drawings. They show placement; the screenshots alone do not specify every mounting hole or printed-part dimension.
+The model helped us compare component positions before assembly and check them against the finished car. These screenshots show the layout, but they are not dimensioned manufacturing drawings and do not include every mounting hole or part measurement.
 
 ## CAD Views
 

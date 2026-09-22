@@ -1,16 +1,16 @@
 # Testing
 
-These clips record checks of driving, a printed body part and steering. Each entry describes what was tested and what the recording shows.
+These clips show three parts of our testing: track driving, a printed body part and the steering system. Each entry states what we checked and what can be seen in the video.
 
 For setup, measurements and repeat-test notes, use the [test procedure](PROCEDURE.md) and [calibration tools](../software/tools/).
 
 ## Test 1 — Track Driving and Turning
 
-**Purpose:** Check the car's movement and its response when entering a corner.
+**Purpose:** Check the car's movement and its response at the start of a corner.
 
 **Test:** The car was placed on the field and driven toward the corner.
 
-**Result:** The car moved across the track and started the corner. The recording ended before the corner or a full run was completed.
+**Result:** The car drove across the track and started turning. The recording ended before it completed the corner, so this video is not evidence of a full run.
 
 **Evidence:**
 
@@ -18,11 +18,11 @@ https://github.com/user-attachments/assets/b2263392-7ead-4043-8df9-3296c7f84011
 
 ## Test 2 — 3D-Printed Body Part
 
-**Purpose:** Check the shape of one of the blue body parts before installing it on the car.
+**Purpose:** Check the shape of one blue body part before installing it on the car.
 
 **Test:** The part was observed during the 3D-printing process.
 
-**Result:** The part was printed and its shape was checked before it was used on the vehicle.
+**Result:** The part finished printing, and we checked its shape before fitting it to the car.
 
 **Evidence:**
 
@@ -34,7 +34,7 @@ https://github.com/user-attachments/assets/e96c9f82-ebd5-4437-964f-ed16c3f7a8d7
 
 **Test:** The steering system was operated while the car was on the table.
 
-**Result:** The servo moved the steering linkage and changed the direction of the front wheels.
+**Result:** The servo moved the linkage and turned the front wheels.
 
 **Evidence:**
 

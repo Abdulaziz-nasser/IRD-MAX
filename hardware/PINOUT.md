@@ -1,6 +1,6 @@
 # Arduino Uno Pin Map
 
-This map follows the three Arduino sketches in this repository. The current board is an Uno R3. Select the [controller for the challenge](../software/README.md#competition-programs); the older development sketch is not the Obstacle controller.
+This map follows the three Arduino controller files in this repository. Our current board is an Uno R3. Select the [controller for the challenge](../software/README.md#competition-programs); the older development code is not the Obstacle controller.
 
 Disconnect power before checking wiring. Have the coach or an experienced adult check battery and regulator wiring before powering the robot.
 
@@ -35,11 +35,11 @@ Disconnect power before checking wiring. Have the coach or an experienced adult 
 | Servo centre / minimum / maximum | 90 / 65 / 112 degrees | 90 / 60 / 115 degrees | 90 / 60 / 115 degrees |
 | Arduino steering sign | Direct normalized mapping | `SERVO_DIR = -1` | `SERVO_DIR = -1` |
 
-The table records source constants, not measured wheel angles or a verified encoder calibration. Jetson steering mapping and trims also affect the result. Keep each challenge's Jetson and Arduino files together.
+These are the values written in the code, not measured wheel angles or a finished encoder calibration. Jetson steering mapping and trim also affect the result. Keep each challenge's Jetson and Arduino files together.
 
-On the Uno R3, the encoder sketches use pin-change interrupts for A2/A3. Do not move the encoder to D2/D3 based on a generic interrupt tutorial: those pins are assigned to ultrasonic sensors in these files.
+On the Uno R3, the encoder code uses pin-change interrupts for A2/A3. D2/D3 are already assigned to ultrasonic sensors, so generic interrupt examples using those pins do not match our wiring.
 
-The four-sensor inventory is consistent with the Obstacle controller; Open uses only three of them. Missing sensor fields are not zero-distance readings.
+The Obstacle controller uses all four ultrasonic sensors, while Open uses three. A missing sensor field does not mean a zero-distance reading.
 
 ## Drawing and power references
 
