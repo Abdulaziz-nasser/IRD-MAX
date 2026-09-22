@@ -1,48 +1,66 @@
-# Current Uno Serial Commands
+# Arduino Serial Reference
 
-This follows [ird_max_controller.ino](controller/ird_max_controller.ino), not the firmware in the rebuild archive. USB serial runs at 115200 baud. Each command ends with a newline.
+USB serial runs at 115200 baud. Commands end with a newline. This page follows [Open](controller/open_challenge_controller.ino), [Obstacle](controller/obstacle_challenge_controller.ino) and the [older development controller](controller/ird_max_controller.ino), not the Mega firmware from the rebuild archive.
 
-## Messages from the Uno
+## Telemetry
 
-- `READY`: setup finished.
-- `ARMED`: the button or START armed the controller.
-- `PONG`: reply to PING.
-- `TLM,...`: heading, state, steering/speed requests, distances and encoder distance.
-- `ENC_CM,...`: reply to ENC_GET.
-- `OK,ENC_ZERO`: encoder count reset.
+All three controllers send `READY` after setup, `ARMED` when armed by the button or START, `PONG` in reply to PING, and lines beginning with `TLM,`.
 
-Telemetry field order:
+Open:
 
 ```text
-TLM,yaw=<degrees>,state=<0|1|2>,steer=<normalized>,speed=<PWM>,dF=<cm>,dL=<cm>,dR=<cm>,enc_cm=<cm>
+TLM,yaw=<degrees>,state=<0|1|2>,steer=<normalized>,speed=<PWM>,dF=<cm>,dL=<cm>,dR=<cm>
 ```
 
-States: 0 is idle, 1 is continuous drive and 2 is a turn. Speed is commanded PWM, not measured vehicle speed. Steer is the normalized request, not a measured wheel angle. This firmware does not publish rear distance `dB`, raw encoder ticks or an `armed=` field.
+Obstacle:
 
-## Accepted commands
+```text
+TLM,yaw=<degrees>,state=<0|1|2|3>,steer=<normalized>,speed=<PWM>,dF=<cm>,dL=<cm>,dR=<cm>,dB=<cm>,enc_cm=<cm>
+```
 
-| Command | Use |
-| --- | --- |
-| `PING` | Check the link. |
-| `ENC_GET` / `ENC_ZERO` | Read scaled encoder distance / reset the count. |
-| `START` | Arm the controller; does not itself request movement. |
-| `STOP` | Stop the motor and center steering. It does not disarm. |
-| `CENTER,<norm>,<PWM>` | Continuous forward drive and steering. |
-| `BACK,<PWM>` / `BACKC,<norm>,<PWM>` | Reverse drive / reverse with steering. |
-| `TURN_ABS,<yaw>[,<PWM>[,REV]]` | Turn toward an absolute heading; optional reverse mode. |
-| `STEER_DEG,<degrees>` | Direct servo command; the active state can overwrite it next loop. |
-| `SET_CENTER,<degrees>` / `TRIM_NORM,<value>` | Change steering setup in memory. |
-| `SET_TURN_PWM,<PWM>` | Change the default turn PWM in memory. |
-| `CLEAR_TURN_PWM` | Clear the per-turn override; does not reset `TURN_PWM_DEFAULT`. |
-| `SET_TURN_TIMEOUT,<ms>` | Set the turn timeout within the code's limits. |
-| `SET_US_TIMEOUT,<microseconds>` / `SET_US_FAR_CM,<cm>` | Change ultrasonic reading limits. |
+The older development controller uses the Open field order followed by `enc_cm`, without `dB`.
 
-Before arming, the parser accepts PING, START, encoder commands and ultrasonic settings. Most steering/movement settings require arming. Serial settings are not saved to EEPROM.
+States are 0 idle, 1 continuous drive, 2 turning, and 3 encoder-distance movement (Obstacle only). Speed and steer fields describe stored commands, not measured vehicle speed or wheel angle; during turns and distance moves they may differ from the active output. Telemetry timing depends on sensor-read delays.
 
-## Safety and version differences
+## Command support
 
-The controller has a turn timeout and a stale-IMU stop during turns. It has no general timeout that stops continuous drive when serial commands disappear. A lost USB connection can leave a previous drive command active.
+| Command | Open | Obstacle | Older development |
+| --- | --- | --- | --- |
+| `PING`, `START`, `STOP` | Yes | Yes | Yes |
+| `CENTER,<norm>,<PWM>` | Yes | Yes | Yes |
+| `BACK,<PWM>` | Yes | Yes | Yes |
+| `BACKC,<norm>,<PWM>` | No | Yes | Yes |
+| `TURN_ABS,<yaw>[,<PWM>]` | Yes | Yes | Yes |
+| `TURN_ABS,<yaw>,<PWM>,REV` | No | Yes | Yes |
+| `SET_CENTER,<degrees>`, `TRIM_NORM,<value>` | Yes | Yes | Yes |
+| `SET_TURN_PWM,<PWM>`, `CLEAR_TURN_PWM` | Yes | Yes | Yes |
+| `STEER_DEG,<degrees>` | No | Yes | Yes |
+| `SET_TURN_TIMEOUT,<ms>` | Yes | No | Yes |
+| `SET_US_TIMEOUT,<microseconds>`, `SET_US_FAR_CM,<cm>` | No | Yes | Yes |
+| `ENC_GET`, `ENC_ZERO` | No | Yes | Yes |
+| `FWD_CM,<cm>[,<PWM>]`, `BACK_CM,<cm>[,<PWM>]` | No | Yes | No |
 
-The uploaded `o1.py` uses `FWD_CM` and `BACK_CM` in some paths. Those distance commands and their completion replies are not implemented here. `BACK_CM` also matches the broader `BACK` prefix. Do not send it as a distance command to this firmware.
+Before arming, Open accepts PING and START. Obstacle and the older development controller also accept encoder queries/reset and ultrasonic settings. Other settings and motion commands require arming. Settings are held in memory, not saved to EEPROM.
 
-The archive's ARM, DRIVE, MOVE, RESET_ENCODER and boot/session handshake belong to a different controller. The added sensor and encoder tools only read telemetry.
+START arms the controller but does not itself request movement. STOP stops the motor and centres steering; it does not clear the armed flag. An active state can overwrite a direct STEER_DEG request. CLEAR_TURN_PWM clears the per-turn override, not the default PWM.
+
+## Obstacle distance and turn replies
+
+- `ENC_CM,<cm>`: reply to ENC_GET.
+- `OK,ENC_ZERO`: encoder reset.
+- `DIST_BEGIN,cm=<cm>`: distance movement started.
+- `DIST,cm=<cm>`: signed progress.
+- `DIST_DONE`: the encoder target was reached and the distance move stopped.
+- `TURN_DONE`: the turn ended, either within heading tolerance or on timeout; this message alone does not prove the target heading was reached.
+
+Obstacle uses a fixed `TURN_MAX_MS = 2500`; it does not implement SET_TURN_TIMEOUT. Its distance state has no Arduino-side time limit if encoder counts stop arriving. Parking decisions and sequence timing are in the Jetson program.
+
+Open uses its own turn timeout and resumes continuous drive after a completed or timed-out turn. It reports `INFO,TURN_FINISH,TIMEOUT` on timeout rather than Obstacle's TURN_DONE message.
+
+## Safety and compatibility
+
+None of these sketches has a general serial-command-loss watchdog for continuous drive. They check stale IMU data while turning, but that is not a general emergency stop. A lost USB link can leave a previous drive command active. Keep drive-motor power disconnected during serial setup; powered checks require a physical power disconnect and appropriate supervision.
+
+Use the [matched challenge files](README.md#competition-programs). Do not send BACKC or BACK_CM to Open: its broad BACK prefix can misinterpret them. Do not send FWD_CM/BACK_CM to the older development controller; it lacks distance movement, and BACK_CM can match BACK.
+
+The sensor and encoder calibration tools read telemetry without sending movement commands.

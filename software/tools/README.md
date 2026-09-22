@@ -36,31 +36,33 @@ The preview checks HSV ranges only. Driving programs also apply their own region
 ## Yaw and ultrasonic checks
 
 ```bash
-python3 software/tools/sensor_check.py --port /dev/ttyUSB0
+python3 software/tools/sensor_check.py --port /dev/ttyACM0
 ```
 
-It shows yaw, front/left/right distances and encoder distance. A rear sensor appears only if firmware actually reports `dB`; otherwise it says `not reported`.
+It shows the fields the selected controller reports. Open supplies yaw and front/left/right distances; Obstacle also supplies rear distance and encoder distance. Missing `dB` or `enc_cm` fields say `not reported` rather than zero. The examples use `/dev/ttyACM0` for the replacement Uno R3; check [serial-port discovery](../SETUP.md#4-find-the-serial-port) first.
 
 - Rotate the car gently by hand and observe yaw. Record the physical rotation direction and sign rather than assuming the IMU mounting.
 - Put a flat target at known distances from each ultrasonic sensor and compare with a ruler.
-- Roll the car by hand and check that `enc_cm` changes.
+- With the Obstacle or older development controller installed, roll the car by hand and check that `enc_cm` changes. Open firmware has no encoder telemetry.
 - Press Ctrl+C to exit.
 
 To save readings:
 
 ```bash
-python3 software/tools/sensor_check.py --port /dev/ttyUSB0 --log sensor_check.csv
+python3 software/tools/sensor_check.py --port /dev/ttyACM0 --log sensor_check.csv
 ```
 
 The log must be a new filename. Missing fields stay blank, not zero. Opening serial can reset the Uno even though this tool sends no commands.
 
 ## Encoder calibration
 
-The uploaded Uno code has `COUNTS_PER_10CM = 624`. Use the value in the firmware actually installed if it differs.
+Use the scale from the firmware actually installed: the Obstacle controller has `COUNTS_PER_10CM = 140`; the older `ird_max_controller.ino` has 624. Neither value is a substitute for measurement on the current drivetrain. The Open controller has no encoder support, so this tool cannot be used with it.
 
 ```bash
-python3 software/tools/encoder_calibrate.py --port /dev/ttyUSB0 --counts-per-10cm 624
+python3 software/tools/encoder_calibrate.py --port /dev/ttyACM0 --counts-per-10cm 140
 ```
+
+The command above is for the Obstacle controller. For the older development firmware, pass 624 instead.
 
 Keep drive-motor power disconnected and USB/logic power on. Follow the prompts: place the car at a start mark, enter a measured distance, then roll it there by hand. Keep wheels on the surface and do not reset or unplug the Uno between readings.
 

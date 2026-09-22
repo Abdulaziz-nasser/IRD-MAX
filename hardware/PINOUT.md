@@ -1,8 +1,10 @@
 # Arduino Uno Pin Map
 
-This comes from [the uploaded Uno code](../software/controller/ird_max_controller.ino). Use it with the [circuit diagram](../schematic/circuit-diagram.png), not the Mega pinout in the rebuild archive.
+This map follows the three Arduino sketches in this repository. The current board is an Uno R3. Select the [controller for the challenge](../software/README.md#competition-programs); the older development sketch is not the Obstacle controller.
 
 Disconnect power before checking wiring. Have the coach or an experienced adult check battery and regulator wiring before powering the robot.
+
+## Common connections
 
 | Connection | Uno pin | Detail |
 | --- | --- | --- |
@@ -16,14 +18,29 @@ Disconnect power before checking wiring. Have the coach or an experienced adult 
 | BTS7960 R_EN | D7 | Driver enable. |
 | BTS7960 L_EN | D8 | Driver enable. |
 | Steering servo signal | D9 | Signal only, not servo power. |
-| Encoder A / CLK | A2 | Quadrature input. |
-| Encoder B / DT | A3 | Quadrature input. |
-| BNO055 SDA | A4 / SDA | Uno I2C data. |
+| BNO055 SDA | A4 / SDA | Uno I2C data; address 0x28. |
 | BNO055 SCL | A5 / SCL | Uno I2C clock. |
 | Jetson | USB | Serial at 115200 baud. |
 
-The IMU address is 0x28. Encoder scale is 624 counts per 10 cm. Servo settings are center 90, minimum 60, maximum 115 degrees, with SERVO_DIR = -1. These are code settings, not measured wheel angles.
+## Connections and settings by controller
 
-The hardware inventory lists four ultrasonic sensors. This firmware reads only front, left and right. No rear pin is defined and no dB value is sent. Do not guess a rear connection from the Mega archive.
+| Detail | [Open](../software/controller/open_challenge_controller.ino) | [Obstacle](../software/controller/obstacle_challenge_controller.ino) | [Older development](../software/controller/ird_max_controller.ino) |
+| --- | --- | --- | --- |
+| Ultrasonic readings | Front, left, right | Front, left, right, rear | Front, left, right |
+| Rear ultrasonic | Not used | D10; telemetry field `dB` | Not used |
+| Encoder A / CLK | Not used | A2 | A2 |
+| Encoder B / DT | Not used | A3 | A3 |
+| Encoder telemetry | None | `enc_cm` | `enc_cm` |
+| Counts per 10 cm in source | Not applicable | 140 | 624 |
+| Servo centre / minimum / maximum | 90 / 65 / 112 degrees | 90 / 60 / 115 degrees | 90 / 60 / 115 degrees |
+| Arduino steering sign | Direct normalized mapping | `SERVO_DIR = -1` | `SERVO_DIR = -1` |
 
-See [power notes](power/) for the documented supply arrangement. Check actual regulator outputs and device ratings; a signal-pin map is not a complete power-wiring guide.
+The table records source constants, not measured wheel angles or a verified encoder calibration. Jetson steering mapping and trims also affect the result. Keep each challenge's Jetson and Arduino files together.
+
+On the Uno R3, the encoder sketches use pin-change interrupts for A2/A3. Do not move the encoder to D2/D3 based on a generic interrupt tutorial: those pins are assigned to ultrasonic sensors in these files.
+
+The four-sensor inventory is consistent with the Obstacle controller; Open uses only three of them. Missing sensor fields are not zero-distance readings.
+
+## Drawing and power references
+
+The [reference drawings](../schematic/) contain substitute component symbols and are not an as-built pin or power map. Use this code-based table for signal assignments and the [power notes](power/) for the distinction between reported wiring and verified supply information. This table does not establish safe power wiring.

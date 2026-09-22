@@ -17,7 +17,7 @@ Upload the Arduino controller that matches the Jetson program for the selected c
 | Open Challenge | [open_challenge.py](jetson/open_challenge.py) | [open_challenge_controller.ino](controller/open_challenge_controller.ino) |
 | Obstacle Challenge | [obstacle_challenge.py](jetson/obstacle_challenge.py) | [obstacle_challenge_controller.ino](controller/obstacle_challenge_controller.ino) |
 
-The Open Challenge pair handles intersection-colour detection, heading correction, corner turns and the final stopping sequence. The Obstacle Challenge pair adds pillar avoidance, encoder-distance movement, the rear ultrasonic sensor and parking states.
+The Open Challenge pair handles intersection-colour detection, heading correction, corner turns and the final stopping sequence. The Obstacle Jetson program contains pillar-avoidance and parking states; its Arduino controller adds rear-distance telemetry and encoder-distance movement. These descriptions identify code functions, not measured completion rates.
 
 ## Other software files
 
@@ -25,7 +25,7 @@ The Open Challenge pair handles intersection-colour detection, heading correctio
 | --- | --- |
 | [jetson/slow_with_yaw.py](jetson/slow_with_yaw.py) | Slow open-track comparison with straight-heading correction. |
 | [jetson/slow_without_yaw.py](jetson/slow_without_yaw.py) | Matching comparison with centered steering between corners. It still uses yaw for turns. |
-| [controller/ird_max_controller.ino](controller/ird_max_controller.ino) | General controller version used during development and calibration. |
+| [controller/ird_max_controller.ino](controller/ird_max_controller.ino) | Older development controller: three ultrasonics and encoder telemetry, without distance-movement commands. |
 | [tools/autotune_colors.py](tools/autotune_colors.py) | Samples four track colours and writes HSV settings in the format the programs read. |
 | [tools/encoder_calibrate.py](tools/encoder_calibrate.py) | Calculates an encoder-scale correction from a measured, hand-rolled distance. |
 | [tools/sensor_check.py](tools/sensor_check.py) | Displays yaw, distances and encoder readings; it can also save them to CSV. |
@@ -44,4 +44,8 @@ The slow comparison programs differ in one setting: `STRAIGHT_YAW_ENABLED`. Thei
 
 The Open and Obstacle Challenge programs use different controller files because their sensor and movement requirements are different. Always use the matched pair in the competition-program table above.
 
-The Open controller reports the front, left and right ultrasonic distances. The Obstacle controller also supports the rear ultrasonic sensor, encoder-distance commands and parking movements.
+The Open controller reports front, left and right distances, without encoder telemetry. The Obstacle controller reports those distances plus `dB` and `enc_cm`, and accepts `FWD_CM` / `BACK_CM`. Parking decisions remain in the Jetson program.
+
+Do not substitute the older `ird_max_controller.ino` for the Obstacle controller: it lacks rear telemetry and distance moves, and its `BACK` prefix can misread `BACK_CM`. The [serial reference](PROTOCOL.md) lists commands separately for all three controllers.
+
+The original source defaults to `/dev/ttyUSB0`. The [setup commands](SETUP.md#4-find-the-serial-port) explicitly select `/dev/ttyACM0` for the replacement Uno R3 without changing the robot's saved tuning. Use the actual listed port if its number differs.

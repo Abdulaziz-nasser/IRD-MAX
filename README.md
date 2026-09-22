@@ -14,7 +14,7 @@ The repository contains the code, parts list, CAD views, wiring drawings and tes
 | Colour and encoder calibration | [Calibration tools](software/tools/) |
 | Components and Arduino connections | [Hardware](hardware/) and [Uno pin map](hardware/PINOUT.md) |
 | Mechanical layout | [CAD views](CAD/) |
-| Wiring drawings | [Schematics](schematic/) |
+| Code-based connections and reference drawings | [Uno pin map](hardware/PINOUT.md) and [schematics](schematic/) |
 | Recorded tests | [Testing](testing/) |
 | Problems and changes | [Journal](Journal.md) |
 | Recent repository changes | [Change notes](CHANGELOG.md) |
@@ -44,7 +44,7 @@ and this is Mohamed Aldawood
 
 ## Our Vehicle
 
-The current setup uses the **original NVIDIA Jetson Nano**, one IMX477 camera and an **Arduino Uno**. The Orin Nano/Mega rebuild archive is a separate reference, not the firmware and operating-system setup for this car.
+The current setup uses the **original NVIDIA Jetson Nano**, one IMX477 camera and an **Arduino Uno R3**. The Orin Nano/Mega rebuild archive is a separate reference, not the firmware and operating-system setup for this car.
 
 | Board | Job |
 | --- | --- |
@@ -72,7 +72,7 @@ The [colour sampler](software/tools/autotune_colors.py) lets us select the four 
 
 The IMU supplies heading, also called yaw. The encoder estimates distance from wheel movement. Ultrasonic sensors provide nearby wall distances. These readings let the Jetson choose a movement, while the Uno produces the motor and servo signals.
 
-The existing Uno file reads front, left and right ultrasonic sensors. The parts list includes four sensors, but a rear reading is not part of this firmware's telemetry. The [pin map](hardware/PINOUT.md) makes that difference explicit.
+The inventory contains four ultrasonic sensors. The Open Challenge controller reads front, left and right distances. The Obstacle Challenge controller also reads the rear sensor on D10 and reports encoder distance from A2/A3. Open does not use the encoder. The [pin map](hardware/PINOUT.md) separates these controller versions.
 
 ## Software and Calibration
 
@@ -100,7 +100,7 @@ Then follow [SETUP.md](software/SETUP.md). It covers the Python imports, OpenCV 
 
 For each test, keep the Python filename, Uno code version, colour YAML file and settings together. Check the program's printed configuration path before starting. The example YAML in this repository is labelled as starter data; it is not a measured field calibration.
 
-The existing files also have a controller-version difference: some movements in `o1.py` use distance commands absent from the uploaded Uno code. Read [the compatibility notes](software/README.md#controller-compatibility) before running those paths. This documentation update does not replace the driving programs.
+Use the [challenge program pairs](software/README.md#competition-programs). `open_challenge.py` runs with `open_challenge_controller.ino`; `obstacle_challenge.py` runs with `obstacle_challenge_controller.ino`. The older `ird_max_controller.ino` is retained for development reference, not as the Obstacle Challenge controller. The Obstacle controller implements the distance commands and rear telemetry used by its Jetson program.
 
 Keep drive-motor power disconnected during setup and calibration. For powered tests, raise the wheels first and keep a physical power disconnect available. The current Uno code has turn protection but no general stop-on-serial-loss watchdog; unplugging USB is not a reliable stop method.
 
@@ -149,12 +149,11 @@ The [official 2026 rules](https://wro-association.org/wp-content/uploads/WRO-202
 | Location | Contents |
 | --- | --- |
 | [hardware/](hardware/) | Component list, signal pin map and power notes. |
-| [schematic/](schematic/) | Circuit diagram and machine schematic. |
+| [schematic/](schematic/) | Reference circuit drawings, with differences from the current Uno setup identified. |
 | [CAD/](CAD/) | Mechanical explanation and six CAD views. |
 | [software/](software/) | Setup, current code, serial reference and calibration tools. |
 | [testing/](testing/) | Videos, observations and repeatable test procedure. |
 | [Journal.md](Journal.md) | Troubleshooting and the yaw comparison. |
 | [CHANGELOG.md](CHANGELOG.md) | Dated documentation/tool changes; Git records the exact file versions. |
-
 
 

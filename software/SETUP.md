@@ -1,6 +1,6 @@
 # Setup
 
-These instructions refer to the original Jetson Nano, Arduino Uno and the code in this repository. Use the existing working Jetson installation. An Orin Nano OS image and an Arduino Mega pin map are different setups.
+These instructions refer to the original Jetson Nano, Arduino Uno R3 and the code in this repository. Use the existing working Jetson installation. An Orin Nano OS image and an Arduino Mega pin map are different setups.
 
 Keep drive-motor power disconnected during installation and calibration. Close all driving programs before opening the camera or Arduino serial port from another tool.
 
@@ -14,7 +14,7 @@ cd IRD-MAX
 git rev-parse HEAD
 ```
 
-Keep the commit ID with a test result. It identifies the files used. GitHub's **Code > Download ZIP** also works; record the commit ID shown on GitHub when downloading.
+Keep the commit ID with a test result. It identifies the files used. For a ZIP copy, choose GitHub's **Code > Download ZIP** and record the commit ID shown when downloading. Extract the archive before opening individual files.
 
 ## 2. Check Python and the camera environment
 
@@ -52,12 +52,17 @@ Use a computer with Arduino IDE and the **Arduino AVR Boards** package.
 
 1. Install the [DFRobot BNO055 library](https://github.com/DFRobot/DFRobot_BNO055). The code includes `DFRobot_BNO055.h`, not the Adafruit library.
 2. Make sure Servo is installed. Wire is supplied with the board package.
-3. Copy [ird_max_controller.ino](controller/ird_max_controller.ino) into a folder also named `ird_max_controller`. Open that copy in Arduino IDE. This meets Arduino's folder-name requirement without moving the repository file.
+3. Select the sketch for your challenge from the table below. Copy only that `.ino` into its own folder with the matching name, then open the copy in Arduino IDE. Do not open all three controller files as one sketch: they each define their own setup and loop.
 4. Select **Arduino Uno**, choose its USB port, then Verify and Upload.
 5. Open Serial Monitor at **115200 baud**. After reset, expect `READY` and lines beginning with `TLM,`.
 6. Close Serial Monitor before starting a Python tool.
 
-Check connections against [the Uno pin map](../hardware/PINOUT.md), not the Mega pinout from the archive.
+| Challenge | Repository sketch | Local sketch folder name |
+| --- | --- | --- |
+| Open | [open_challenge_controller.ino](controller/open_challenge_controller.ino) | `open_challenge_controller` |
+| Obstacle | [obstacle_challenge_controller.ino](controller/obstacle_challenge_controller.ino) | `obstacle_challenge_controller` |
+
+The older [ird_max_controller.ino](controller/ird_max_controller.ino) is retained for development reference. It is not a substitute for the Obstacle controller. Check connections against the [version-specific Uno pin map](../hardware/PINOUT.md), not the Mega pinout from the archive.
 
 ## 4. Find the serial port
 
@@ -65,7 +70,7 @@ Check connections against [the Uno pin map](../hardware/PINOUT.md), not the Mega
 python3 -m serial.tools.list_ports
 ```
 
-The current default is `/dev/ttyUSB0`. A different interface may appear as `/dev/ttyACM0` or another number. Use the port actually listed.
+The replacement Uno R3 was identified as `/dev/ttyACM0`. The source files still default to `/dev/ttyUSB0`; the commands below override that default without editing code. Use the actual port from the listing if its number differs. Keep Serial Monitor and other serial programs closed.
 
 For a permissions error, check the device's group and your account's groups. On systems where access belongs to `dialout`:
 
@@ -78,10 +83,10 @@ Log out and back in before retrying. Do not run the driving program with sudo as
 Read sensors without sending movement commands:
 
 ```bash
-python3 software/tools/sensor_check.py --port /dev/ttyUSB0
+python3 software/tools/sensor_check.py --port /dev/ttyACM0
 ```
 
-Opening serial can reset the Uno. Keep motor power disconnected even for a read-only tool.
+Opening serial can reset the Uno. Keep motor power disconnected even for a read-only tool. Open firmware has no `enc_cm` or `dB`; those fields appearing as `not reported` is expected. Obstacle firmware reports both.
 
 ## 5. Calibrate colours and distance
 
@@ -89,33 +94,60 @@ Follow [the calibration guide](tools/README.md). The colour tool saves four top-
 
 The [example file](jetson/config/vision.example.yaml) contains starter values from the archive, not measurements from our field. It does not match `vision_*.yaml`, so the driving programs do not automatically select it.
 
-The scripts select the alphabetically last `config/vision_*.yaml` relative to the working directory, unless `VISION_CFG` points to an existing file. Use an explicit path when comparing runs.
+The scripts select the alphabetically last `config/vision_*.yaml` relative to the working directory, unless `VISION_CFG` points to an existing file. Use an explicit path when comparing runs. A legacy error in the Open program mentions `tuner_multi.py`; the colour tool supplied here is [autotune_colors.py](tools/autotune_colors.py).
+
+Encoder calibration applies to the Obstacle controller (source scale 140 counts per 10 cm) or the older development controller (624), not Open. Pass the value from the firmware actually installed; do not copy the other version's scale.
 
 ## 6. Check the existing programs
 
 From the repository root, these commands check syntax and the calibration helpers without operating the robot:
 
 ```bash
-python3 -m py_compile software/jetson/o1.py software/jetson/slow_with_yaw.py software/jetson/slow_without_yaw.py
+python3 -m py_compile software/jetson/open_challenge.py software/jetson/obstacle_challenge.py software/jetson/slow_with_yaw.py software/jetson/slow_without_yaw.py
 python3 -m unittest discover -s software/tests -v
 ```
 
 For a stationary camera check, use the autotuner with drive-motor power disconnected. It never opens the Arduino port.
 
-For a driving program, change into `software/jetson`. Replace the filename below with the actual calibrated file saved by the tool:
+For a bench launch, change into `software/jetson`. Enter the real colour-file path printed by the autotuner; this avoids a made-up example filename. Use an absolute path or a path relative to this directory, without adding quote characters when answering the prompt.
 
 ```bash
 cd software/jetson
-VISION_CFG="$PWD/config/vision_your_saved_file.yaml" ROBOT_PORT=/dev/ttyUSB0 python3 slow_with_yaw.py
+read -r -p "Calibrated colour YAML path: " VISION_CFG
+export VISION_CFG
 ```
 
-The path must exist. Check the `Loaded vision config:` message: a nonexistent override can fall back to another file.
+Choose **one** launch command and upload its matching Arduino controller first. The file check prevents a mistyped calibration path from silently selecting another file. `ALLOW_NO_CAMERA=0` prevents a camera-open failure from intentionally falling back to a dummy frame; still confirm live images before starting.
 
-Use `slow_without_yaw.py` for the matching comparison. Read [the controller compatibility note](README.md#controller-compatibility) before attempting the movement sequences in `o1.py`.
+Open Challenge:
+
+```bash
+if [ -f "$VISION_CFG" ]; then
+    ROBOT_PORT=/dev/ttyACM0 ALLOW_NO_CAMERA=0 python3 open_challenge.py
+else
+    printf '%s\n' 'Calibration file not found; program not started.'
+fi
+```
+
+Obstacle Challenge:
+
+```bash
+if [ -f "$VISION_CFG" ]; then
+    ROBOT_PORT=/dev/ttyACM0 ALLOW_NO_CAMERA=0 python3 obstacle_challenge.py
+else
+    printf '%s\n' 'Calibration file not found; program not started.'
+fi
+```
+
+Check the printed configuration path and serial connection before pressing start. To repeat the historical yaw comparison, use `slow_with_yaw.py` or `slow_without_yaw.py` with the controller and settings recorded for that test; do not treat a comparison as the competition release.
 
 The existing programs use **S** to start and **Q** to send STOP and quit while their OpenCV window is focused. The physical start button connects to the Uno. Keyboard controls are for bench testing, not a replacement for the competition start procedure.
 
 Do not treat closing a terminal, Ctrl+C or unplugging USB as an emergency stop. The uploaded Uno code has no general serial-command-loss watchdog. Keep a physical drive-power disconnect available and verify stopping with the wheels raised before floor testing.
+
+## Verification limits
+
+The syntax and helper-test commands above do not use the robot. Arduino Verify/Upload, camera frames, serial permissions and powered start/stop checks must be verified on the actual equipment. Manual terminal launch is a bench procedure; these steps do not install or validate an automatic competition boot/start service.
 
 ## References
 

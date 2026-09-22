@@ -16,22 +16,11 @@ These details are not enough to identify the cell chemistry, charging limit or r
 
 The reported voltage range should be verified with a meter. It does not establish a safe charging limit or prove that individual cells are balanced.
 
-## Regulated Supply Reference
+## Reported Arrangement and Supply Requirements
 
-The diagram below shows separate regulated branches. It is a wiring reference, not proof that every regulator or protection part is fitted to the current vehicle.
+The team's description identifies a DC-DC step-down supply for the Jetson and low-power electronics. It also describes a drive branch without a step-down regulator. That report is not evidence of a safe motor supply: the reported pack voltage is higher than the motor's 7.2 V marking. Have the coach or an experienced adult inspect the actual drive-power arrangement before powered testing.
 
-```mermaid
-flowchart TD
-    PACK["Four-cell pack"] --> PROTECT["Protection and distribution"]
-    PROTECT --> LOGIC["Regulated 5 V"]
-    PROTECT --> SERVO["Servo-rated regulated supply"]
-    PROTECT --> MOTOR["Motor-rated regulated supply"]
-    LOGIC --> NANO["Jetson Nano"]
-    NANO -->|USB| UNO["Arduino Uno and low-power sensors"]
-    SERVO --> STEER["MG996R servo"]
-    MOTOR --> DRIVER["BTS7960 driver"]
-    DRIVER --> RC380["7.2 V RC380"]
-```
+Separate servo and motor regulators, fuses and pack protection are not claimed as installed without identification. The table below records supply requirements to check, not a completed wiring diagram or measured load test.
 
 | Branch | Supply requirement to check |
 | --- | --- |
@@ -42,18 +31,16 @@ flowchart TD
 
 A step-down regulator reduces voltage; an ordinary buck converter does not provide galvanic isolation. Ground and high-current wiring need to be planned together.
 
-The earlier wiring description included a battery-to-motor-driver branch without a step-down regulator. Do not copy that branch as a safe 7.2 V motor supply from a 15–18 V pack. Have the actual connection checked before powering the drivetrain.
-
 ## Sensors and Placement
 
 | Device | Role and check |
 | --- | --- |
 | BNO055 IMU | Provides yaw. Secure its mounting, note axis direction and keep it away from motor magnetic fields where practical. Check readings while rotating the car by hand. |
 | Ultrasonic sensors | Measure space around the car. Compare readings with known distances and make sure the body does not block the sensing faces. |
-| Encoder | Measures drivetrain movement. The uploaded code uses 624 counts per 10 cm; the [manual calibration tool](../../software/tools/) checks that scale. |
+| Encoder | Measures drivetrain movement. The Obstacle controller uses 140 counts per 10 cm; the older development controller uses 624. The Open controller does not read the encoder. The [manual calibration tool](../../software/tools/#encoder-calibration) checks the scale in the firmware actually installed. |
 | IMX477 camera | Connects to the Jetson through CSI. Check its view with the cover fitted and sample colours under the track lighting. |
 
-The parts inventory lists four ultrasonic sensors, but the current Uno firmware publishes only front, left and right distances. See [the pin map](../PINOUT.md) for the software-supported connections.
+The inventory lists four ultrasonic sensors. Open publishes front, left and right distances; Obstacle also publishes rear distance. See [the pin map](../PINOUT.md) for connections by controller version.
 
 ## Checks to Record
 
