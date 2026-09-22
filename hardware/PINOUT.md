@@ -43,4 +43,4 @@ The four-sensor inventory is consistent with the Obstacle controller; Open uses 
 
 ## Drawing and power references
 
-The [schematics](../schematic/) show the connection layout confirmed by the team, using some older component symbols. This table gives the pin assignments in each uploaded controller version. See the [power notes](power/) for supply details and electrical checks.
+The [schematics](../schematic/) show how we connect the components in our robot. This table gives the pin assignments in each uploaded controller version. See the [power notes](power/) for supply details and electrical checks.

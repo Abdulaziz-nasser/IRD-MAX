@@ -1,6 +1,6 @@
 # Schematics
 
-These diagrams show the robot's connection layout, confirmed by the team. Some component symbols come from an older drawing, while the connections represent the team's wiring.
+These diagrams show how we connect the components in our robot.
 
 Use the [hardware list](../hardware/) for the installed component names, the [Uno pin map](../hardware/PINOUT.md) for pin assignments in each controller version, and the [power notes](../hardware/power/) for supply details.
 
@@ -8,12 +8,12 @@ Use the [hardware list](../hardware/) for the installed component names, the [Un
 
 ![Circuit diagram](circuit-diagram.png)
 
-The diagram shows the connections between the controller, sensors, motor driver, steering servo and power components. The component illustrations are symbols rather than photographs of the installed parts.
+This diagram shows how we connect our controller, sensors, motor driver, steering servo and power components.
 
 ## Machine Schematic
 
 ![Machine schematic](machine-schematic.png)
 
-This is the schematic view of the same connection layout. The documented build uses the original Jetson Nano, Arduino Uno R3, IMX477 camera and BTS7960 motor driver.
+This is the schematic view of the same connection layout. Our robot uses the original Jetson Nano, Arduino Uno R3, IMX477 camera and BTS7960 motor driver.
 
 The [CAD page](../CAD/) shows the mechanical arrangement from six directions.

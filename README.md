@@ -148,7 +148,7 @@ The [official 2026 rules](https://wro-association.org/wp-content/uploads/WRO-202
 | Location | Contents |
 | --- | --- |
 | [hardware/](hardware/) | Component list, signal pin map and power notes. |
-| [schematic/](schematic/) | Circuit diagram and machine schematic showing the team's connection layout. |
+| [schematic/](schematic/) | Circuit diagram and machine schematic showing how we connect our components. |
 | [CAD/](CAD/) | Mechanical explanation and six CAD views. |
 | [software/](software/) | Setup, current code, serial reference and calibration tools. |
 | [testing/](testing/) | Videos, observations and repeatable test procedure. |
