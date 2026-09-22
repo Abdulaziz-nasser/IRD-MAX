@@ -27,3 +27,4 @@ Wiring: [circuit diagram](../schematic/circuit-diagram.png) and [machine schemat
 We use four ultrasonic sensors. The Open controller reads front, left and right; the Obstacle controller also reads the rear distance on D10. Encoder inputs A2/A3 are used by the Obstacle and older development controllers, but not by the Open controller. See the [version-specific pin map](PINOUT.md).
 
 The computer installed in our car is the original Jetson Nano, not the Orin Nano. The [vehicle photos](../README.md#vehicle-photos) show the actual build.
+
