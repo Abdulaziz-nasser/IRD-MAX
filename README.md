@@ -6,11 +6,11 @@
 
 ### Open Challenge
 
-<!-- Paste the Open Challenge video below this comment. -->
+https://youtu.be/OJL41EdZJPY
 
 ### Obstacle Challenge
 
-<!-- Paste the Obstacle Challenge video below this comment. -->
+https://youtube.com/shorts/ws1nUv93fCw
 
 ## About the Robot
 
