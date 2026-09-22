@@ -17,15 +17,14 @@ JetPack installation did not finish when we used the first USB drive.
 * Checked the USB drive again.
 
 ### **Solution**
-<img width="640" height="480" alt="worked" src="https://github.com/user-attachments/assets/e0a43b2a-5aad-4f6c-968b-c6432be90d0d" />
-
 
 We used another USB drive and repeated the JetPack installation.
 
 ### **Result**
+<img width="640" height="480" alt="worked" src="https://github.com/user-attachments/assets/e0a43b2a-5aad-4f6c-968b-c6432be90d0d" />
 
 The installation worked with the replacement USB drive. 
-<img width="640" height="480" alt="pic_solve1" src="https://github.com/user-attachments/assets/f72a838c-ae70-4830-945c-4e5ff570c717" />
+
 
 ## **Problem 2 — NoMachine Connection** 
 <img width="640" height="480" alt="photo_no_machine_not_done_#crying" src="https://github.com/user-attachments/assets/20470a50-e19c-4336-aa9e-58a59ea4540b" />
