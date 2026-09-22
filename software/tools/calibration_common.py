@@ -44,3 +44,5 @@ def read_packet(link, required=(), timeout=3.0):
         if packet is not None and all(key in packet for key in required):
             return packet
     raise TimeoutError("No fresh TLM packet with the required fields. Check the Uno code, port and baud.")
+
+1

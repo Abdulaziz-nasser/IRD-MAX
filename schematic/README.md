@@ -17,3 +17,5 @@ This diagram shows how we connect our controller, sensors, motor driver, steerin
 This is the schematic view of the same connection layout. Our robot uses the original Jetson Nano, Arduino Uno R3, IMX477 camera and BTS7960 motor driver.
 
 The [CAD page](../CAD/) shows the mechanical arrangement from six directions.
+
+1

@@ -49,3 +49,5 @@ The Open controller reports front, left and right distances, without encoder tel
 Do not substitute the older `ird_max_controller.ino` for the Obstacle controller: it lacks rear telemetry and distance moves, and its `BACK` prefix can misread `BACK_CM`. The [serial reference](PROTOCOL.md) lists commands separately for all three controllers.
 
 The original source defaults to `/dev/ttyUSB0`. The [setup commands](SETUP.md#4-find-the-serial-port) explicitly select `/dev/ttyACM0` for the replacement Uno R3 without changing the robot's saved tuning. Use the actual listed port if its number differs.
+
+1
