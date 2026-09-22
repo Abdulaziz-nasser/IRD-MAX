@@ -9,5 +9,3 @@ Use [autotune_colors.py](../../tools/autotune_colors.py) to sample the real fiel
 The environment variable `VISION_CFG` can select a file explicitly. Otherwise the programs sort `config/vision_*.yaml` relative to their working directory and load the final filename. Check the printed path before a run.
 
 Keep the exact colour file with the code version used in a recorded test. Do not replace a working file with starter values.
-
-1

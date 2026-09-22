@@ -94,5 +94,3 @@ The sampler and manual encoder procedure were adapted from `one_camera_robot_reb
 The added tools use Python 3.6-compatible syntax. They do not require the rebuild's Mega firmware, motion library, background service or OS installer. Its steering tool is not included because its commands do not match the Uno.
 
 The helpers were checked offline. Camera capture, GUI interaction, serial timing and physical measurements require checks on the robot.
-
-1

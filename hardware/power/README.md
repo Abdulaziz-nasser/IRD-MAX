@@ -51,5 +51,3 @@ A useful power check records supply voltage, current where measurable, any reset
 This repository does not contain a measured current budget or regulator load-test table. The documented supply reference should not be presented as completed electrical validation.
 
 [NVIDIA Jetson Nano Developer Kit User Guide](https://developer.nvidia.com/embedded/dlc/jetson_nano_developer_kit_user_guide)
-
-1

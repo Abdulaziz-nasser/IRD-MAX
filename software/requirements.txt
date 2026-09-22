@@ -5,5 +5,3 @@
 numpy
 PyYAML
 pyserial
-
-1
