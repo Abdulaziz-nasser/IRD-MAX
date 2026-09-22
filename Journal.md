@@ -3,12 +3,12 @@
 These are the main problems we faced while setting up and testing the car, along with what we tried and what fixed them.
 
 ## Problem 1 — Faulty USB Drive
-<img width="640" height="480" alt="maybe_a_problem" src="https://github.com/user-attachments/assets/881410ae-a910-4c82-b6fe-b376b6668296" />
-
 
 ### Problem
 
 The JetPack installation did not finish when we used the first USB drive.
+
+<img width="640" height="480" alt="maybe_a_problem" src="https://github.com/user-attachments/assets/881410ae-a910-4c82-b6fe-b376b6668296" />
 
 ### What We Tried
 
@@ -27,12 +27,11 @@ The installation worked with the replacement USB drive.
 
 
 ## Problem 2 — NoMachine Connection
-<img width="640" height="480" alt="photo_no_machine_not_done_#crying" src="https://github.com/user-attachments/assets/20470a50-e19c-4336-aa9e-58a59ea4540b" />
-
-
 ### Problem
 
 The laptop had NoMachine 7.8 and the Jetson had version 10. We could not connect, and NoMachine showed “The connection with the server was lost.”
+
+<img width="640" height="480" alt="photo_no_machine_not_done_#crying" src="https://github.com/user-attachments/assets/20470a50-e19c-4336-aa9e-58a59ea4540b" />
 
 ### What We Tried
 
@@ -88,6 +87,14 @@ Both versions still use the IMU for corner turns.
 
 The programmed distance was inconsistent. The robot travelled a different distance after each full lap around the field, which includes four corner turns.
 
+
+https://github.com/user-attachments/assets/edc7dd84-3243-4707-87c4-4f8222450dc0
+
+
+
+https://github.com/user-attachments/assets/bc55a3ee-09cf-4bc0-b27b-0e08118dfad4
+
+
 ### Solution
 
 We created a separate distance-checker program and repeated the same movement several times. This allowed us to verify the distance values and adjust the calculation until the robot travelled a consistent and accurate distance.
@@ -96,19 +103,35 @@ We created a separate distance-checker program and repeated the same movement se
 
 The distance became more reliable and repeatable during full-field runs.
 
+
+
+https://github.com/user-attachments/assets/b283ef8e-e083-4e8e-adf9-65da4aa7fb71
+
+
+
+https://github.com/user-attachments/assets/81d28cd4-cf9e-4bb1-9ad8-c071826f39cc
+
+
 ## Problem 5 — Worn Encoder
 
 ### Problem
 
+
 The encoder had been used heavily during testing. Over time, its readings became lower and unreliable, even when the robot travelled the same distance.
+
+<img width="480" height="640" alt="ao" src="https://github.com/user-attachments/assets/5f1e8d23-0eb8-4a54-a746-aceed9c7c272" />
+
+<img width="480" height="640" alt="ao1" src="https://github.com/user-attachments/assets/bae0591b-65b8-41b2-9be3-eba7748fa7d2" />
 
 ### Solution
 
 We replaced the worn encoder with a new one and checked its readings using the distance-checker program.
 
 ### Result
+<img width="480" height="640" alt="af" src="https://github.com/user-attachments/assets/75a29f96-ceeb-4f50-b60c-718ec19cf0b2" />
 
 The new encoder produced stable readings and restored accurate distance measurement.
+<img width="480" height="640" alt="af1" src="https://github.com/user-attachments/assets/5fb4ab36-3b05-4f26-a48e-c1798f285ff9" />
 
 
 [Recorded tests](testing/) · [Test procedure](testing/PROCEDURE.md) · [Setup and calibration](software/SETUP.md)
