@@ -43,4 +43,4 @@ The four-sensor inventory is consistent with the Obstacle controller; Open uses 
 
 ## Drawing and power references
 
-The [reference drawings](../schematic/) contain substitute component symbols and are not an as-built pin or power map. Use this code-based table for signal assignments and the [power notes](power/) for the distinction between reported wiring and verified supply information. This table does not establish safe power wiring.
+The [schematics](../schematic/) show the connection layout confirmed by the team, using some older component symbols. This table gives the pin assignments in each uploaded controller version. See the [power notes](power/) for supply details and electrical checks.

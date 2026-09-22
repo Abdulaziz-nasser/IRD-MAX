@@ -14,10 +14,9 @@ The repository contains the code, parts list, CAD views, wiring drawings and tes
 | Colour and encoder calibration | [Calibration tools](software/tools/) |
 | Components and Arduino connections | [Hardware](hardware/) and [Uno pin map](hardware/PINOUT.md) |
 | Mechanical layout | [CAD views](CAD/) |
-| Code-based connections and reference drawings | [Uno pin map](hardware/PINOUT.md) and [schematics](schematic/) |
+| Wiring diagrams and signal connections | [Uno pin map](hardware/PINOUT.md) and [schematics](schematic/) |
 | Recorded tests | [Testing](testing/) |
 | Problems and changes | [Journal](Journal.md) |
-| Recent repository changes | [Change notes](CHANGELOG.md) |
 
 ## Team Information
 
@@ -149,11 +148,10 @@ The [official 2026 rules](https://wro-association.org/wp-content/uploads/WRO-202
 | Location | Contents |
 | --- | --- |
 | [hardware/](hardware/) | Component list, signal pin map and power notes. |
-| [schematic/](schematic/) | Reference circuit drawings, with differences from the current Uno setup identified. |
+| [schematic/](schematic/) | Circuit diagram and machine schematic showing the team's connection layout. |
 | [CAD/](CAD/) | Mechanical explanation and six CAD views. |
 | [software/](software/) | Setup, current code, serial reference and calibration tools. |
 | [testing/](testing/) | Videos, observations and repeatable test procedure. |
 | [Journal.md](Journal.md) | Troubleshooting and the yaw comparison. |
-| [CHANGELOG.md](CHANGELOG.md) | Dated documentation/tool changes; Git records the exact file versions. |
 
 

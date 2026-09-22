@@ -6,7 +6,7 @@ Use the [Uno pin map](PINOUT.md) to check signal connections and the [power note
 
 | Component | Quantity | Photo or reference |
 |---|---|---|
-| NVIDIA Jetson Nano | 1 | [NVIDIA Jetson Nano Developer Kit user guide](https://developer.nvidia.com/embedded/dlc/jetson_nano_developer_kit_user_guide) |
+| NVIDIA Jetson Nano | 1 | <a href="https://developer.nvidia.com/embedded/dlc/jetson_nano_developer_kit_user_guide"><img src="images/jetson-nano.png" width="180" alt="NVIDIA Jetson Nano"></a> |
 | Arduino Uno R3 with shield | 1 | <a href="https://store.arduino.cc/products/arduino-uno-rev3"><img src="https://cdn.shopify.com/s/files/1/0438/4735/2471/files/A000066_03.front.jpg?v=1727098250" width="130" alt="Arduino Uno with shield — product reference photo"></a> <a href="https://thinkrobotics.com/products/io-sensor-shield-online"><img src="https://cdn.shopify.com/s/files/1/0014/4313/5560/products/H22ce1d6591f647658c827f17694af887r.jpg?v=1667075719" width="130" alt="Arduino Uno with shield — product reference photo"></a> |
 | HW-039 module | 1 | <a href="https://kitsguru.com/products/double-bts7960b-dc-43a-stepper-motor-driver-h-bridge-pwm-for-arduino-smart-car"><img src="https://cdn.shopify.com/s/files/1/0587/2130/4757/files/DoubleBTS796043AH-BridgeHigh-PowerStepperMotorDriverModule.jpg?v=1775714838" width="180" alt="HW-039 module — product reference photo"></a> |
 | IMX477 camera | 1 | <a href="https://thinkrobotics.com/products/waveshare-imx477-160-12-3mp-camera-160-fov"><img src="https://cdn.shopify.com/s/files/1/0014/4313/5560/products/H3683a4868aba4ffa9f039c9733f8eda8c.jpg?v=1631119910" width="180" alt="IMX477 camera — product reference photo"></a> |
@@ -17,7 +17,7 @@ Use the [Uno pin map](PINOUT.md) to check signal connections and the [power note
 | **Rotary encoder** | 1 | <a href="https://kitsguru.com/products/m274-360-degree-rotary-encoder-brick-sensor-module"><img src="https://cdn.shopify.com/s/files/1/0587/2130/4757/products/Rotary-Encoder-Brick-Sensor-Module-1.jpg?v=1737971857" width="180" alt="Rotary encoder — product reference photo"></a> |
 | Buzzer | 1 | <a href="https://www.dfrobot.com/product-84.html"><img src="https://dfimg.dfrobot.com/enshop/DFR0032/DFR0032_Main_01.jpg" width="180" alt="Buzzer — product reference photo"></a> |
 | Battery cell holder | 1 | <a href="https://quartzcomponents.com/products/4-cell-18650-battery-holder"><img src="https://cdn.shopify.com/s/files/1/0300/6424/6919/products/4-Cell-18650-Battery-Holder.jpg?v=1649937983" width="180" alt="Battery cell holder — product reference photo"></a> |
-| DC-DC step-down regulator | See power notes | <img src="images/adjustable-dc-dc-step-down-regulator.jpg" width="180" alt="Adjustable DC-DC step-down regulator"> |
+| DC-DC step-down regulator | See power notes | <img src="images/dc-dc-step-down-regulator.png" width="180" alt="Adjustable DC-DC step-down regulator"> |
 | Start button | 1 | <a href="https://www.dfrobot.com/product-1097.html"><img src="https://dfimg.dfrobot.com/enshop/image/data/DFR0029-W/DFR0029-W_260526%20%281%29.jpg" width="180" alt="Start button — product reference photo"></a> |
 
 Most photos are product references, not identification photos of the installed parts. Check the label on the actual component before using a linked product's voltage or current rating.
