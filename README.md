@@ -12,6 +12,8 @@
 
 <!-- Paste the Obstacle Challenge video below this comment. -->
 
+## About the Robot
+
 This is our self-driving car for WRO Future Engineers. We use a Jetson Nano to process the camera and an Arduino Uno to control the motor, steering and sensors.
 
 The repository contains the code, parts list, CAD views, wiring drawings and test recordings. The journal explains problems we ran into, including straight-driving corrections and setting up remote access.
@@ -21,6 +23,7 @@ The repository contains the code, parts list, CAD views, wiring drawings and tes
 | Looking for | Open |
 | --- | --- |
 | Install, upload and run instructions | [Software setup](software/SETUP.md) |
+| Obstacle route and pillar avoidance | [Obstacle strategy](software/README.md#obstacle-challenge-strategy) |
 | Colour and encoder calibration | [Calibration tools](software/tools/) |
 | Components and Arduino connections | [Hardware](hardware/) and [Uno pin map](hardware/PINOUT.md) |
 | Mechanical layout | [CAD views](CAD/) |

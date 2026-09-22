@@ -6,7 +6,11 @@ The Jetson reads the camera and decides what to do. The Arduino Uno reads the se
 
 We marked this field layout to show an example route around the pillars. The black arrows show the direction of travel and the turns along the route.
 
+**Start at the thick red line on the right side of the picture and move upward.** Follow the arrows counterclockwise: turn left across the top, continue down the left side, travel right across the bottom, then head upward on the right side again. The smaller changes in direction take the car around the pillars.
+
 ![Our Obstacle Challenge route example](obstacle-strategy.png)
+
+Left and right are measured from the car's direction of travel.
 
 - **Red pillar:** pass on its right.
 - **Green pillar:** pass on its left.
