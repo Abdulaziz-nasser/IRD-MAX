@@ -82,6 +82,33 @@ https://github.com/user-attachments/assets/0a3b3312-4361-43b0-a533-556fb77a1832
 
 Both versions still use the IMU for corner turns.
 
+## Problem 4 — Inconsistent Distance
+
+### Problem
+
+The programmed distance was inconsistent. The robot travelled a different distance after each full lap around the field, which includes four corner turns.
+
+### Solution
+
+We created a separate distance-checker program and repeated the same movement several times. This allowed us to verify the distance values and adjust the calculation until the robot travelled a consistent and accurate distance.
+
+### Result
+
+The distance became more reliable and repeatable during full-field runs.
+
+## Problem 5 — Worn Encoder
+
+### Problem
+
+The encoder had been used heavily during testing. Over time, its readings became lower and unreliable, even when the robot travelled the same distance.
+
+### Solution
+
+We replaced the worn encoder with a new one and checked its readings using the distance-checker program.
+
+### Result
+
+The new encoder produced stable readings and restored accurate distance measurement.
+
 
 [Recorded tests](testing/) · [Test procedure](testing/PROCEDURE.md) · [Setup and calibration](software/SETUP.md)
-
